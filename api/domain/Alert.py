@@ -2,18 +2,18 @@ from api.domain.AbstractIkologikInstallationsObject import AbstractIkologikInsta
 
 
 class Alert(AbstractIkologikInstallationsObject):
-	alertType: str = None
-	startDate: int = None
-	endDate: int = None
-	active: bool = None
-	severity: str = None
-	message: str = None
-	availablilityRelated: bool = None
-	operationRelated: bool = None
-	connectivityRelated: bool = None
-	acknowledgeDate: int = None
-	meters: str = None
-	nrOfComments: int = None
 
-	def __init__(self, customer: str, installation: str):
-		super().__init__(customer, installation)
+    def __init__(self, customer: str, installation: str):
+        super().__init__(customer, installation)
+        self.alertType = None
+        self.startDate = None
+        self.endDate = None
+        self.active = None
+        self.severity = None
+        self.message = None
+        self.availablilityRelated = None
+        self.operationRelated = None
+        self.connectivityRelated = None
+        self.acknowledgeDate = None
+        self.meters = None
+        self.nrOfComments = None

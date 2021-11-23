@@ -3,80 +3,82 @@ from types import SimpleNamespace
 
 import requests
 
-from api.IkologikAPI import IkologikAPI
+from JwtHelper import JwtHelper
 from api.domain.Search import Search
 
 
 class AbstractIkologikService:
-	api_helper = IkologikAPI()
 
-	# CRUD Actions
+    def __init__(self, jwtHelper: JwtHelper):
+        self.jwtHelper = jwtHelper
 
-	def get_headers(self):
-		headers = {
-			'Content-Type': 'application/json',
-			'Authorization': f'Bearer {self.api_helper.get_jwt()}'
-		}
-		return headers
+    # CRUD Actions
 
-	def get_url(self):
-		pass
+    def get_headers(self):
+        headers = {
+            'Content-Type': 'application/json',
+            'Authorization': f'Bearer {self.jwtHelper.get_jwt()}'
+        }
+        return headers
 
-	def list(self) -> list:
-		try:
-			response = requests.get(
-				self.get_url(),
-				headers=self.get_headers()
-			)
-			result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-			return result
-		except requests.exceptions.HTTPError as error:
-			print(error)
+    def get_url(self):
+        pass
 
-	def search(self, search: Search) -> list:
-		try:
-			data = json.dumps(search, default=lambda o: o.__dict__)
-			response = requests.post(
-				f'{self.get_url()}/search',
-				data=data,
-				headers=self.get_headers()
-			)
-			result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-			return result
-		except requests.exceptions.HTTPError as error:
-			print(error)
+    def list(self) -> list:
+        try:
+            response = requests.get(
+                self.get_url(),
+                headers=self.get_headers()
+            )
+            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+            return result
+        except requests.exceptions.HTTPError as error:
+            print(error)
 
-	def create(self, o: object) -> object:
-		try:
-			data = json.dumps(o, default=lambda o: o.__dict__)
-			response = requests.post(
-				self.get_url(),
-				data=data,
-				headers=self.get_headers()
-			)
-			result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-			return result
-		except requests.exceptions.HTTPError as error:
-			print(error)
+    def search(self, search: Search) -> list:
+        try:
+            data = json.dumps(search, default=lambda o: o.__dict__)
+            response = requests.post(
+                f'{self.get_url()}/search',
+                data=data,
+                headers=self.get_headers()
+            )
+            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+            return result
+        except requests.exceptions.HTTPError as error:
+            print(error)
 
-	def update(self, id: str, o: object) -> object:
-		try:
-			data = json.dumps(o, default=lambda o: o.__dict__)
-			response = requests.put(
-				f'{self.get_url()}/{id}',
-				data=data,
-				headers=self.get_headers()
-			)
-			result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-			return result
-		except requests.exceptions.HTTPError as error:
-			print(error)
+    def create(self, o: object) -> object:
+        try:
+            data = json.dumps(o, default=lambda o: o.__dict__)
+            response = requests.post(
+                self.get_url(),
+                data=data,
+                headers=self.get_headers()
+            )
+            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+            return result
+        except requests.exceptions.HTTPError as error:
+            print(error)
 
-	def delete(self, id: str):
-		try:
-			response = requests.delete(
-				f'{self.get_url()}/{id}',
-				headers=self.get_headers()
-			)
-		except requests.exceptions.HTTPError as error:
-			print(error)
+    def update(self, id: str, o: object) -> object:
+        try:
+            data = json.dumps(o, default=lambda o: o.__dict__)
+            response = requests.put(
+                f'{self.get_url()}/{id}',
+                data=data,
+                headers=self.get_headers()
+            )
+            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+            return result
+        except requests.exceptions.HTTPError as error:
+            print(error)
+
+    def delete(self, id: str):
+        try:
+            response = requests.delete(
+                f'{self.get_url()}/{id}',
+                headers=self.get_headers()
+            )
+        except requests.exceptions.HTTPError as error:
+            print(error)

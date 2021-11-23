@@ -2,23 +2,21 @@ from api.domain.AbstractIkologikObject import AbstractIkologikObject
 
 
 class TagAlertType(AbstractIkologikObject):
-	meter: str = None
-	value: int = None
-	# TODO: check enum
-	type: str = None
-	# TODO: check enum
-	severity: str = None
-	message: str = None
-	autoAcknowledge: bool = None
-	active: str = None
-	activationMessageEnabled: bool = None
-	activationMessage: str = None
-	deactivationMessageEnabled: bool = None
-	deactivationMessage: str = None
-	availabilityRelated: str = None
-	operationRelated: bool = None
-	connectivityRelated: bool = None
-	notificationReceivers: list = None
 
-	def __init__(self):
-		super().__init__()
+    def __init__(self):
+        super().__init__()
+        self.meter = None
+        self.value = None
+        self.type = None
+        self.severity = None
+        self.message = None
+        self.autoAcknowledge = None
+        self.active = None
+        self.activationMessageEnabled = None
+        self.activationMessage = None
+        self.deactivationMessageEnabled = None
+        self.deactivationMessage = None
+        self.availabilityRelated = None
+        self.operationRelated = None
+        self.connectivityRelated = None
+        self.notificationReceivers = None

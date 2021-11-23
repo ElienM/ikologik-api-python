@@ -1,9 +1,13 @@
+from JwtHelper import JwtHelper
 from api.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
 
 
 class AlertService(AbstractIkologikInstallationService):
 
-	# CRUD Actions
+    def __init__(self, jwtHelper: JwtHelper):
+        super().__init__(jwtHelper)
 
-	def get_url(self, customer, installation):
-		return f'{self.api_helper.get_url()}/api/v2/customer/{customer}/installation/{installation}/alert'
+    # CRUD Actions
+
+    def get_url(self, customer, installation):
+        return f'{self.jwtHelper.get_url()}/api/v2/customer/{customer}/installation/{installation}/alert'

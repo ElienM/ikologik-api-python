@@ -2,23 +2,23 @@ from api.domain.AbstractIkologikInstallationsObject import AbstractIkologikInsta
 
 
 class ReportType(AbstractIkologikInstallationsObject):
-	type: str = None
-	outputType: str = None
-	name: str = None
-	title: str = None
-	fileName: str = None
-	contentType: str = None
-	comment: str = None
-	scheduleActive: bool = None
-	schedule: str = None
-	dateEditable: bool = None
-	titleEditable: bool = None
-	filenameEditable: bool = None
-	reviewEnabled: bool = None
-	reviewReceivers: list = None
-	reviewReceiversSendRequired: bool = None
-	notificationReceivers: list = None
-	notificationReceiversSendRequired: bool = None
 
-	def __init__(self, customer: str, installation: str):
-		super().__init__(customer, installation)
+    def __init__(self, customer: str, installation: str):
+        super().__init__(customer, installation)
+        self.type = None
+        self.outputType = None
+        self.name = None
+        self.title = None
+        self.fileName = None
+        self.contentType = None
+        self.comment = None
+        self.scheduleActive = None
+        self.schedule = None
+        self.dateEditable = None
+        self.titleEditable = None
+        self.filenameEditable = None
+        self.reviewEnabled = None
+        self.reviewReceivers = None
+        self.reviewReceiversSendRequired = None
+        self.notificationReceivers = None
+        self.notificationReceiversSendRequired = None

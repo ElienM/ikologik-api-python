@@ -2,22 +2,22 @@ from api.domain.AbstractIkologikInstallationsObject import AbstractIkologikInsta
 
 
 class AlertType(AbstractIkologikInstallationsObject):
-	severity: str = None
-	message: str = None
-	autoAchnowledge: bool = None
-	active: bool = None
-	timeoutActivation: int = None
-	activationMessageEnabled: bool = None
-	timeoutDeactivation: int = None
-	deactivationMessageEnabled: bool = None
-	deactivationMessage: str = None
-	availabilityRelated: bool = None
-	operationRelated: bool = None
-	connectivitiyRelated: bool = None
-	criteria: list = None
-	notificationReceivers: list = None
-	notificationMessageLanguage: str = None
-	notificationMessageRepeat: int = None
 
-	def __init__(self, customer: str, installation: str):
-		super().__init__(customer, installation)
+    def __init__(self, customer: str, installation: str):
+        super().__init__(customer, installation)
+        self.severity = None
+        self.message = None
+        self.autoAchnowledge = None
+        self.active = None
+        self.timeoutActivation = None
+        self.activationMessageEnabled = None
+        self.timeoutDeactivation = None
+        self.deactivationMessageEnabled = None
+        self.deactivationMessage = None
+        self.availabilityRelated = None
+        self.operationRelated = None
+        self.connectivitiyRelated = None
+        self.criteria = None
+        self.notificationReceivers = None
+        self.notificationMessageLanguage = None
+        self.notificationMessageRepeat = None
