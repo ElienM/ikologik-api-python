@@ -1,8 +1,9 @@
 import os
 
-from IkologikAPI import IkologikAPI
-
+from IkologikApi import IkologikAPI
 ## Prepare the API
+from domain.Dashboard import Dashboard
+
 api = IkologikAPI(
     url=os.getenv('URL'),
     username=os.getenv('USERNAME'),
@@ -15,28 +16,34 @@ installationId = os.getenv('INSTALLATION')
 
 ## List installations
 print('## Installations ##')
-installations = api.installations.list(customerId)
+installations = api.installation.list(customerId)
 for installation in installations:
     print(installation.name)
 print('')
 
 ## List dashboards
 print('## Dashboards ##')
-dashboards = api.dashboards.list(customerId, installationId)
+d = Dashboard(customerId, installationId)
+d.name = "Test"
+d = api.dashboard.create(customerId, installationId, d)
+print(d)
+
+dashboards = api.dashboard.list(customerId, installationId)
 for dashboard in dashboards:
     print(dashboard.name)
 print('')
 
 ## List dashboard widget types
 print('## Dashboard widget type ##')
-dashboardWidgetTypes = api.dashboardWidgetTypes.list()
+dashboardWidgetTypes = api.dashboardWidgetType.list()
 for dashboardWidgetType in dashboardWidgetTypes:
     print(dashboardWidgetType.name)
 print('')
 
 ## List tags
 print('## Tags ##')
-tags = api.tags.list(customerId, installationId)
+tags = api.tag.list(customerId, installationId)
 for tag in tags:
     print(tag.name)
+
 print('')

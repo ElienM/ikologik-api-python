@@ -4,7 +4,7 @@ from types import SimpleNamespace
 import requests
 
 
-class JwtHelper(object):
+class IkologikApiCredentials(object):
 
     def __init__(self, url: str, username: str, password: str):
         self.url = url

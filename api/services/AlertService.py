@@ -1,10 +1,10 @@
-from JwtHelper import JwtHelper
+from IkologikApiCredentials import IkologikApiCredentials
 from api.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
 
 
 class AlertService(AbstractIkologikInstallationService):
 
-    def __init__(self, jwtHelper: JwtHelper):
+    def __init__(self, jwtHelper: IkologikApiCredentials):
         super().__init__(jwtHelper)
 
     # CRUD Actions

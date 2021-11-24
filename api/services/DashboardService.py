@@ -1,4 +1,4 @@
-from JwtHelper import JwtHelper
+from IkologikApiCredentials import IkologikApiCredentials
 from api.domain import Dashboard
 from api.domain.Search import Search
 from api.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
@@ -6,7 +6,7 @@ from api.services.AbstractIkologikInstallationService import AbstractIkologikIns
 
 class DashboardService(AbstractIkologikInstallationService):
 
-    def __init__(self, jwtHelper: JwtHelper):
+    def __init__(self, jwtHelper: IkologikApiCredentials):
         super().__init__(jwtHelper)
 
     # CRUD Actions

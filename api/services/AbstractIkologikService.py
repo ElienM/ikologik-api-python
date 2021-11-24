@@ -3,13 +3,13 @@ from types import SimpleNamespace
 
 import requests
 
-from JwtHelper import JwtHelper
+from IkologikApiCredentials import IkologikApiCredentials
 from api.domain.Search import Search
 
 
 class AbstractIkologikService:
 
-    def __init__(self, jwtHelper: JwtHelper):
+    def __init__(self, jwtHelper: IkologikApiCredentials):
         self.jwtHelper = jwtHelper
 
     # CRUD Actions
