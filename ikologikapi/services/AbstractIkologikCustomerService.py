@@ -3,24 +3,25 @@ from types import SimpleNamespace
 
 import requests
 
-from IkologikApiCredentials import IkologikApiCredentials
-from api.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
+from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.domain.Search import Search
+from ikologikapi.services.AbstractIkologikService import AbstractIkologikService
 
 
-class DashboardWidgetService(AbstractIkologikInstallationService):
+class AbstractIkologikCustomerService(AbstractIkologikService):
 
     def __init__(self, jwtHelper: IkologikApiCredentials):
         super().__init__(jwtHelper)
 
     # CRUD Actions
 
-    def get_url(self, customer: str, installation: str, dashboard: str):
-        return f'{self.jwtHelper.get_url()}/api/v2/customer/{customer}/installation/{installation}/dashboard/{dashboard}/widget'
+    def get_url(self, customer: str):
+        pass
 
-    def list(self, customer: str, installation: str, dashboard: str, search) -> list:
+    def list(self, customer: str) -> list:
         try:
             response = requests.get(
-                f'{self.get_url(customer, installation, dashboard)}/search',
+                self.get_url(customer),
                 headers=self.get_headers()
             )
             result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
@@ -28,11 +29,11 @@ class DashboardWidgetService(AbstractIkologikInstallationService):
         except requests.exceptions.HTTPError as error:
             print(error)
 
-    def search(self, customer: str, installation: str, dashboard: str, search) -> list:
+    def search(self, customer: str, search: Search) -> list:
         try:
             data = json.dumps(search, default=lambda o: o.__dict__)
             response = requests.post(
-                f'{self.get_url(customer, installation, dashboard)}/search',
+                f'{self.get_url(customer)}/search',
                 data=data,
                 headers=self.get_headers()
             )
@@ -41,11 +42,11 @@ class DashboardWidgetService(AbstractIkologikInstallationService):
         except requests.exceptions.HTTPError as error:
             print(error)
 
-    def create(self, customer: str, installation: str, dashboard: str, o: object) -> object:
+    def create(self, customer: str, o: object) -> object:
         try:
             data = json.dumps(o, default=lambda o: o.__dict__)
             response = requests.post(
-                self.get_url(customer, installation, dashboard),
+                self.get_url(customer),
                 data=data,
                 headers=self.get_headers()
             )
@@ -54,11 +55,11 @@ class DashboardWidgetService(AbstractIkologikInstallationService):
         except requests.exceptions.HTTPError as error:
             print(error)
 
-    def update(self, customer: str, installation: str, dashboard: str, o: object):
+    def update(self, customer: str, id: str, o: object) -> object:
         try:
             data = json.dumps(o, default=lambda o: o.__dict__)
             response = requests.put(
-                f'{self.get_url(customer, installation, dashboard)}/{o.id}',
+                f'{self.get_url(customer)}/{id}',
                 data=data,
                 headers=self.get_headers()
             )
@@ -67,10 +68,10 @@ class DashboardWidgetService(AbstractIkologikInstallationService):
         except requests.exceptions.HTTPError as error:
             print(error)
 
-    def delete(self, customer: str, installation: str, dashboard: str, id: str):
+    def delete(self, customer: str, id: str):
         try:
             response = requests.delete(
-                f'{self.get_url(customer, installation, dashboard)}/{id}',
+                f'{self.get_url(customer)}/{id}',
                 headers=self.get_headers()
             )
         except requests.exceptions.HTTPError as error:

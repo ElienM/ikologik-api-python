@@ -3,9 +3,9 @@ from types import SimpleNamespace
 
 import requests
 
-from IkologikApiCredentials import IkologikApiCredentials
-from api.domain.Search import Search
-from api.services.AbstractIkologikCustomerService import AbstractIkologikCustomerService
+from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.domain.Search import Search
+from ikologikapi.services.AbstractIkologikCustomerService import AbstractIkologikCustomerService
 
 
 class AbstractIkologikInstallationService(AbstractIkologikCustomerService):

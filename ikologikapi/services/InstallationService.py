@@ -1,5 +1,5 @@
-from IkologikApiCredentials import IkologikApiCredentials
-from api.services.AbstractIkologikCustomerService import AbstractIkologikCustomerService
+from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.services.AbstractIkologikCustomerService import AbstractIkologikCustomerService
 
 
 class InstallationService(AbstractIkologikCustomerService):

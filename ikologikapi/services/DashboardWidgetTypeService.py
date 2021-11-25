@@ -1,6 +1,6 @@
-from IkologikApiCredentials import IkologikApiCredentials
-from api.domain.Search import Search
-from api.services.AbstractIkologikService import AbstractIkologikService
+from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.domain.Search import Search
+from ikologikapi.services.AbstractIkologikService import AbstractIkologikService
 
 
 class DashboardWidgetTypeService(AbstractIkologikService):

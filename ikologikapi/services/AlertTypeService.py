@@ -1,5 +1,5 @@
-from IkologikApiCredentials import IkologikApiCredentials
-from api.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
+from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
 
 
 class AlertTypeService(AbstractIkologikInstallationService):

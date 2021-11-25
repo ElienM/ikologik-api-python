@@ -1,4 +1,4 @@
-from api.domain.AbstractIkologikObject import AbstractIkologikObject
+from ikologikapi.domain.AbstractIkologikObject import AbstractIkologikObject
 
 
 class AbstractIkologikCustomerObject(AbstractIkologikObject):

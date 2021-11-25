@@ -1,7 +1,7 @@
-from IkologikApiCredentials import IkologikApiCredentials
-from api.domain import Dashboard
-from api.domain.Search import Search
-from api.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
+from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.domain import Dashboard
+from ikologikapi.domain.Search import Search
+from ikologikapi.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
 
 
 class DashboardService(AbstractIkologikInstallationService):

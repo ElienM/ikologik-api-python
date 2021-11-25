@@ -1,4 +1,4 @@
-from api.domain.AbstractIkologikInstallationsObject import AbstractIkologikInstallationsObject
+from ikologikapi.domain.AbstractIkologikInstallationsObject import AbstractIkologikInstallationsObject
 
 
 class Alert(AbstractIkologikInstallationsObject):

@@ -1,18 +1,20 @@
 import os
 
-from IkologikApi import IkologikAPI
+from ikologikapi.IkologikApi import IkologikAPI
 ## Prepare the API
-from domain.Dashboard import Dashboard
+from ikologikapi.domain.Dashboard import Dashboard
 
 api = IkologikAPI(
     url=os.getenv('URL'),
     username=os.getenv('USERNAME'),
-    password=os.getenv('PASSWORD')
+    password=os.getenv('PASSWORD'),
 )
+
 
 ## Load the customer and installation id's
 customerId = os.getenv('CUSTOMER')
 installationId = os.getenv('INSTALLATION')
+
 
 ## List installations
 print('## Installations ##')
