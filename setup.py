@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='ikologikapi',
-    version='0.0.7',
+    version='1.0.0',
     packages=find_packages(include=['ikologikapi*']),
     url='',
     license='MIT',

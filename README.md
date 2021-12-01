@@ -9,4 +9,4 @@ facilities constantly into focus.
 The Ikologik platform offers a REST API to automate and manage your data logging environment. 
 Through the API, you can closely integrate your data logging environment with other production 
 systems and exchange data from and to the Ikologik platform. To be able to invoke requests to 
-the REST API, you need to request a JWT token by using your Ikologik credentials. 
+the REST API, you need to request a JWT token by using your Ikologik credentials.
