@@ -23,4 +23,7 @@ class DashboardService(AbstractIkologikInstallationService):
 
         # Query
         result = self.search(customer, installation, search)
-        return result[0]
+        if result and len(result) == 1:
+            return result[0]
+        else:
+            return None

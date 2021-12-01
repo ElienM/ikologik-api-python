@@ -21,7 +21,7 @@ class BatchService(AbstractIkologikInstallationService):
 
         # Query
         result = self.search(customer, installation, search)
-        if result:
+        if result and len(result) == 1:
             return result[0]
         else:
-            return []
+            return None

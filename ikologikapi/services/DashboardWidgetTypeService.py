@@ -22,7 +22,10 @@ class DashboardWidgetTypeService(AbstractIkologikService):
 
         # Query
         result = self.search(search)
-        return result[0]
+        if result and len(result) == 1:
+            return result[0]
+        else:
+            return None
 
     def get_by_type(self, type: str):
         # Prepare the search
@@ -33,4 +36,7 @@ class DashboardWidgetTypeService(AbstractIkologikService):
 
         # Query
         result = self.search(search)
-        return result[0]
+        if result and len(result) == 1:
+            return result[0]
+        else:
+            return None
