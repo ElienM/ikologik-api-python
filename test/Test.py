@@ -1,8 +1,9 @@
 import os
 
 from ikologikapi.IkologikApi import IkologikAPI
-## Prepare the API
 from ikologikapi.domain.Dashboard import Dashboard
+
+## Prepare the API
 
 api = IkologikAPI(
     url=os.getenv('URL'),
@@ -10,11 +11,10 @@ api = IkologikAPI(
     password=os.getenv('PASSWORD'),
 )
 
-
 ## Load the customer and installation id's
 customerId = os.getenv('CUSTOMER')
 installationId = os.getenv('INSTALLATION')
-
+dataImportTypeId = os.getenv('DATAIMPORTTYPE')
 
 ## List installations
 print('## Installations ##')
@@ -42,10 +42,16 @@ for dashboardWidgetType in dashboardWidgetTypes:
     print(dashboardWidgetType.name)
 print('')
 
+## List data import types
+print('## Data import type ##')
+dataImportTypes = api.dataImportType.list(customerId, installationId)
+for dataImportType in dataImportTypes:
+    print(dataImportType.name)
+print('')
+
 ## List tags
 print('## Tags ##')
 tags = api.tag.list(customerId, installationId)
 for tag in tags:
     print(tag.name)
-
 print('')
