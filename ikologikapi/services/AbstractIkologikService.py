@@ -24,6 +24,17 @@ class AbstractIkologikService:
     def get_url(self):
         pass
 
+    def get_by_id(self, id: str) -> object:
+        try:
+            response = requests.get(
+                self.get_url() + f'/{id}',
+                headers=self.get_headers()
+            )
+            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+            return result
+        except requests.exceptions.HTTPError as error:
+            print(error)
+
     def list(self) -> list:
         try:
             response = requests.get(
