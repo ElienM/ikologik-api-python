@@ -18,16 +18,27 @@ class AbstractIkologikInstallationService(AbstractIkologikCustomerService):
     def get_url(self, customer: str, installation: str):
         pass
 
-    def list(self, customer: str, installation: str) -> list:
+    def get_by_id(self, customer: str, installation: str, id: str) -> object:
         try:
             response = requests.get(
-                self.get_url(customer, installation),
+                self.get_url(customer, installation) + f'/{id}',
                 headers=self.get_headers()
             )
             result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
             return result
         except requests.exceptions.HTTPError as error:
             print(error)
+
+    def list(self, customer: str, installation: str) -> list:
+            try:
+                response = requests.get(
+                    self.get_url(customer, installation),
+                    headers=self.get_headers()
+                )
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            except requests.exceptions.HTTPError as error:
+                print(error)
 
     def search(self, customer: str, installation: str, search: Search) -> list:
         try:

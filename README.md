@@ -10,3 +10,18 @@ The Ikologik platform offers a REST API to automate and manage your data logging
 Through the API, you can closely integrate your data logging environment with other production 
 systems and exchange data from and to the Ikologik platform. To be able to invoke requests to 
 the REST API, you need to request a JWT token by using your Ikologik credentials.
+
+### Build and deploy
+To build the project, run following command:
+
+`./venv/bin/python setup.py bdist_wheel`
+
+After the build has been completed, add the possiblity to use twine by running:
+
+`./venv/bin/python -m pip install --upgrade twine`
+
+To upload the project to Pypi:
+
+`./venv/bin/twine upload dist/*`
+
+During the upload, your Pypi credentials will be requested.
