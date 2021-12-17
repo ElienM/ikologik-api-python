@@ -44,7 +44,7 @@ class IkologikApiCredentials(object):
                 )
 
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-                self.expirationDate = response.expiresAt
+                self.expirationDate = result.expiresAt
                 self.jwt = result.accessToken
                 return self.jwt
             else:
