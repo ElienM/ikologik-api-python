@@ -1,4 +1,5 @@
 import json
+import time
 from types import SimpleNamespace
 
 import requests
@@ -11,6 +12,7 @@ class IkologikApiCredentials(object):
         self.username = username
         self.password = password
         self.jwt = None
+        self.expirationDate = None
 
     def get_url(self):
         return self.url
@@ -23,7 +25,7 @@ class IkologikApiCredentials(object):
 
     def get_jwt(self):
         try:
-            if self.jwt is None:
+            if self.jwt is None or self.expirationDate < int(time.time() * 1000):
                 # Prepare the headers
                 headers = {
                     'Content-Type': 'application/json'
@@ -40,7 +42,9 @@ class IkologikApiCredentials(object):
                     headers=headers,
                     verify=False
                 )
+
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                self.expirationDate = result.expiresAt
                 self.jwt = result.accessToken
                 return self.jwt
             else:
