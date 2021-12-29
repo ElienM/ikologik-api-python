@@ -6,6 +6,7 @@ from ikologikapi.services.BatchTypeService import BatchTypeService
 from ikologikapi.services.DashboardService import DashboardService
 from ikologikapi.services.DashboardWidgetService import DashboardWidgetService
 from ikologikapi.services.DashboardWidgetTypeService import DashboardWidgetTypeService
+from ikologikapi.services.DataImportService import DataImportService
 from ikologikapi.services.DataImportTypeService import DataImportTypeService
 from ikologikapi.services.InstallationService import InstallationService
 from ikologikapi.services.ReportTypeService import ReportTypeService
@@ -24,6 +25,7 @@ class IkologikAPI:
         self.dashboard = DashboardService(self.apiCredentials)
         self.dashboardWidget = DashboardWidgetService(self.apiCredentials)
         self.dashboardWidgetType = DashboardWidgetTypeService(self.apiCredentials)
+        self.dataImport = DataImportService(self.apiCredentials)
         self.dataImportType = DataImportTypeService(self.apiCredentials)
         self.installation = InstallationService(self.apiCredentials)
         self.reportType = ReportTypeService(self.apiCredentials)
