@@ -12,7 +12,7 @@ class IkologikApiCredentials(object):
         self.username = username
         self.password = password
         self.jwt = None
-        self.expirationDate = None
+        self.jwtExpirationDate = None
 
     def get_url(self):
         return self.url
@@ -25,16 +25,20 @@ class IkologikApiCredentials(object):
 
     def get_jwt(self):
         try:
-            if self.jwt is None or self.expirationDate < int(time.time() * 1000):
+            if self.jwt is None or self.jwtExpirationDate < int(time.time() * 1000):
+                print('Requesting new JWT token')
+
                 # Prepare the headers
                 headers = {
                     'Content-Type': 'application/json'
                 }
+
                 # Prepare the data
                 data = json.dumps({
                     'username': self.username,
                     'password': self.password
                 })
+
                 # Execute
                 response = requests.post(
                     f'{self.url}/api/v2/auth/login',
@@ -43,9 +47,11 @@ class IkologikApiCredentials(object):
                     verify=False
                 )
 
+                # Process response
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-                self.expirationDate = result.expiresAt
                 self.jwt = result.accessToken
+                self.jwtExpirationDate = result.expiresAt
+
                 return self.jwt
             else:
                 return self.jwt
