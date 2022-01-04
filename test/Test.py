@@ -63,4 +63,8 @@ dataImport = api.dataImport.update_status(customerId, installationId, dataImport
 print(dataImport)
 print('')
 
+dataImport = api.dataImport.update_error(customerId, installationId, dataImportTypeId, dataImportId, 'Something wrong')
+print(dataImport)
+print('')
+
 

@@ -100,6 +100,18 @@ class DataImportService(AbstractIkologikInstallationService):
         except requests.exceptions.HTTPError as error:
             print(error)
 
+    def update_error(self, customer: str, installation: str, data_import_type: str, id: str, error) -> object:
+        try:
+            response = requests.put(
+                f'{self.get_url(customer, installation, data_import_type)}/{id}/error',
+                data=error,
+                headers=self.get_headers_update_status()
+            )
+            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+            return result
+        except requests.exceptions.HTTPError as error:
+            print(error)
+
     def get_headers_update_status(self):
         headers = {
             'Content-Type': 'text/plain',
