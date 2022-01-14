@@ -1,4 +1,5 @@
 from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.services.AbstractIkologikCustomerService import AbstractIkologikCustomerService
 from ikologikapi.services.AlertService import AlertService
 from ikologikapi.services.AlertTypeService import AlertTypeService
 from ikologikapi.services.BatchService import BatchService
