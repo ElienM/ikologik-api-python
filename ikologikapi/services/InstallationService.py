@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 import requests
 import json
 from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
@@ -15,16 +17,15 @@ class InstallationService(AbstractIkologikCustomerService):
     def get_url(self, customer: str):
         return f'{self.jwtHelper.get_url()}/api/v2/customer/{customer}/installation'
 
-
-
-    def get_by_name(self, customer: str,  installation_name: str):
-        search = Search()
-        search.add_filter("name", "EQ", [installation_name])
-        search.add_order("name", "ASC")
-
-        # Query
-        result = self.search(customer, search)
-        if result and len(result) == 1:
-            return result[0]
-        else:
-            return None
+    def search(self, customer: str, search) -> list:
+        try:
+            data = json.dumps(search, default=lambda o: o.__dict__)
+            response = requests.post(
+                f'{self.get_url(customer)}/search',
+                data=data,
+                headers=self.get_headers()
+            )
+            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+            return result
+        except requests.exceptions.HTTPError as error:
+            print(error)
