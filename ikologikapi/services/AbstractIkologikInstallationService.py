@@ -4,6 +4,7 @@ from types import SimpleNamespace
 import requests
 
 from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.IkologikException import IkologikException
 from ikologikapi.domain.Search import Search
 from ikologikapi.services.AbstractIkologikCustomerService import AbstractIkologikCustomerService
 
@@ -24,10 +25,15 @@ class AbstractIkologikInstallationService(AbstractIkologikCustomerService):
                 self.get_url(customer, installation) + f'/{id}',
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while getting an installation with id: " + id)
 
     def list(self, customer: str, installation: str) -> list:
             try:
@@ -35,10 +41,15 @@ class AbstractIkologikInstallationService(AbstractIkologikCustomerService):
                     self.get_url(customer, installation),
                     headers=self.get_headers()
                 )
-                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-                return result
-            except requests.exceptions.HTTPError as error:
-                print(error)
+                if response.status_code == 200:
+                    result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                    return result
+                else:
+                    raise IkologikException("Request returned status " + str(response.status_code))
+            except IkologikException as ex:
+                raise ex
+            except Exception as ex:
+                raise IkologikException("Error while querying a list")
 
     def search(self, customer: str, installation: str, search: Search) -> list:
         try:
@@ -48,10 +59,15 @@ class AbstractIkologikInstallationService(AbstractIkologikCustomerService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while searching for an installation")
 
     def create(self, customer: str, installation: str, o: object = None) -> object:
         try:
@@ -61,10 +77,15 @@ class AbstractIkologikInstallationService(AbstractIkologikCustomerService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 201:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while creating an installation")
 
     def update(self, customer: str, installation: str, id: str, o: object) -> object:
         try:
@@ -74,10 +95,15 @@ class AbstractIkologikInstallationService(AbstractIkologikCustomerService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while updating an installation")
 
     def delete(self, customer: str, installation: str, id: str):
         try:
@@ -85,5 +111,9 @@ class AbstractIkologikInstallationService(AbstractIkologikCustomerService):
                 f'{self.get_url(customer, installation)}/{id}',
                 headers=self.get_headers()
             )
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code != 204:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as error:
+            raise IkologikException("Error while deleting an installation")
+        except Exception as ex:
+            raise IkologikException("Error while deleting an installation")

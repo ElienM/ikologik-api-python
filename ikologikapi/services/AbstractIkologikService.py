@@ -4,6 +4,7 @@ from types import SimpleNamespace
 import requests
 
 from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.IkologikException import IkologikException
 from ikologikapi.domain.Search import Search
 
 
@@ -14,11 +15,13 @@ class AbstractIkologikService:
 
     # CRUD Actions
 
-    def get_headers(self):
+    def get_headers(self, default_headers=None):
         headers = {
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.jwtHelper.get_jwt()}'
         }
+        if default_headers is not None:
+            headers.update(default_headers)
         return headers
 
     def get_url(self):
@@ -30,10 +33,15 @@ class AbstractIkologikService:
                 self.get_url() + f'/{id}',
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while getting by id")
 
     def list(self) -> list:
         try:
@@ -41,10 +49,15 @@ class AbstractIkologikService:
                 self.get_url(),
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while querying list")
 
     def search(self, search: Search) -> list:
         try:
@@ -54,10 +67,15 @@ class AbstractIkologikService:
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while searching")
 
     def create(self, o: object) -> object:
         try:
@@ -67,10 +85,15 @@ class AbstractIkologikService:
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 201:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while creating")
 
     def update(self, id: str, o: object) -> object:
         try:
@@ -80,10 +103,15 @@ class AbstractIkologikService:
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while updating")
 
     def delete(self, id: str):
         try:
@@ -91,5 +119,9 @@ class AbstractIkologikService:
                 f'{self.get_url()}/{id}',
                 headers=self.get_headers()
             )
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code != 204:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as error:
+            raise IkologikException("Error while deleting installation")
+        except Exception as ex:
+            raise IkologikException("Error while deleting")

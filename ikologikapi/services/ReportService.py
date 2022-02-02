@@ -4,7 +4,7 @@ import requests
 
 from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
 from ikologikapi.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
-
+from ikologikapi.IkologikException import IkologikException
 
 class ReportService(AbstractIkologikInstallationService):
 
@@ -24,10 +24,15 @@ class ReportService(AbstractIkologikInstallationService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 201:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while creating the report")
 
     def build(self, customer: str, installation: str, report_type: str) -> object:
         try:
@@ -35,32 +40,46 @@ class ReportService(AbstractIkologikInstallationService):
                 f'{self.get_url(customer, installation, report_type)}/build',
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while building the report")
 
-    def updateStatus (self, customer:str, installation: str, report_type: str, report_id: str, status: str) -> object:
+    def update_status (self, customer:str, installation: str, report_type: str, report_id: str, status: str) -> object:
         try:
             response = requests.put(
                 f'{self.get_url(customer, installation, report_type)}/{report_id}/status',
                 data=status,
-                headers=self.get_headers()
+                headers=self.get_headers({'Content-Type': 'text/plain'})
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException(f'Request returned status:' + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while updating status of the report")
 
-    def upload (self, customer: str, installation:str, report_type:str, report_id: str, filename: str, content_type: str) -> object:
+    def upload (self, customer: str, installation: str, report_type: str, report_id: str) -> object:
         try:
-            params = {'filename': filename, 'contentType': content_type}
             response = requests.get(
                 f'{self.get_url(customer, installation, report_type)}/{report_id}/upload',
-                params=params,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = response.content.decode("utf-8")
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while getting the uploadlink for the report")
+

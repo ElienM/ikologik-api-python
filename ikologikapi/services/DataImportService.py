@@ -4,6 +4,7 @@ from types import SimpleNamespace
 import requests
 
 from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.IkologikException import IkologikException
 from ikologikapi.domain.Search import Search
 from ikologikapi.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
 
@@ -24,10 +25,15 @@ class DataImportService(AbstractIkologikInstallationService):
                 f'{self.get_url(customer, installation, data_import_type)}/search',
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while querying list of the dataimport")
 
     def get_by_id(self, customer: str, installation: str, data_import_type: str, id: str) -> object:
         try:
@@ -35,10 +41,15 @@ class DataImportService(AbstractIkologikInstallationService):
                 self.get_url(customer, installation, data_import_type) + f'/{id}',
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while getting the dataimport by id")
 
     def search(self, customer: str, installation: str, data_import_type: str, search) -> list:
         try:
@@ -48,10 +59,15 @@ class DataImportService(AbstractIkologikInstallationService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while searching for dataimport")
 
     def create(self, customer: str, installation: str, data_import_type: str, o: object) -> object:
         try:
@@ -61,10 +77,15 @@ class DataImportService(AbstractIkologikInstallationService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 201:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while creating dataimport")
 
     def update(self, customer: str, installation: str, data_import_type: str, o: object):
         try:
@@ -74,10 +95,15 @@ class DataImportService(AbstractIkologikInstallationService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while updating dataimport")
 
     def delete(self, customer: str, installation: str, data_import_type: str, id: str):
         try:
@@ -85,40 +111,47 @@ class DataImportService(AbstractIkologikInstallationService):
                 f'{self.get_url(customer, installation, data_import_type)}/{id}',
                 headers=self.get_headers()
             )
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code != 204:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as error:
+            raise IkologikException("Error while deleting dataimport")
+        except Exception as ex:
+            raise IkologikException("Error while deleting dataimport")
 
     def update_status(self, customer: str, installation: str, data_import_type: str, id: str, status) -> object:
         try:
             response = requests.put(
                 f'{self.get_url(customer, installation, data_import_type)}/{id}/status',
                 data=status,
-                headers=self.get_headers_update_status()
+                headers=self.get_headers({'Content-Type': 'text/plain'})
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while updating the status for the dataimport")
 
     def update_error(self, customer: str, installation: str, data_import_type: str, id: str, error) -> object:
         try:
             response = requests.put(
                 f'{self.get_url(customer, installation, data_import_type)}/{id}/error',
                 data=error,
-                headers=self.get_headers_update_status()
+                headers=self.get_headers({'Content-Type': 'text/plain'})
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while updating error for dataimport")
 
-    def get_headers_update_status(self):
-        headers = {
-            'Content-Type': 'text/plain',
-            'Authorization': f'Bearer {self.jwtHelper.get_jwt()}'
-        }
-
-        return headers
 
 
     def get_by_name(self, customer: str, installation: str, name):

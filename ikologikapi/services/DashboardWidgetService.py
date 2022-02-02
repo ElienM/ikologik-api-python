@@ -4,6 +4,7 @@ from types import SimpleNamespace
 import requests
 
 from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
+from ikologikapi.IkologikException import IkologikException
 from ikologikapi.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
 
 
@@ -23,10 +24,15 @@ class DashboardWidgetService(AbstractIkologikInstallationService):
                 f'{self.get_url(customer, installation, dashboard)}/search',
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while listing a dashboardwidget")
 
     def search(self, customer: str, installation: str, dashboard: str, search) -> list:
         try:
@@ -36,10 +42,15 @@ class DashboardWidgetService(AbstractIkologikInstallationService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while searching for a dashboardwidget")
 
     def create(self, customer: str, installation: str, dashboard: str, o: object) -> object:
         try:
@@ -49,10 +60,15 @@ class DashboardWidgetService(AbstractIkologikInstallationService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 201:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while creating a dashboardwidget")
 
     def update(self, customer: str, installation: str, dashboard: str, o: object):
         try:
@@ -62,10 +78,15 @@ class DashboardWidgetService(AbstractIkologikInstallationService):
                 data=data,
                 headers=self.get_headers()
             )
-            result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-            return result
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while updating a dashboardwidget")
 
     def delete(self, customer: str, installation: str, dashboard: str, id: str):
         try:
@@ -73,5 +94,9 @@ class DashboardWidgetService(AbstractIkologikInstallationService):
                 f'{self.get_url(customer, installation, dashboard)}/{id}',
                 headers=self.get_headers()
             )
-        except requests.exceptions.HTTPError as error:
-            print(error)
+            if response.status_code != 204:
+                raise IkologikException("Request returned status " + str(response.status_code))
+        except IkologikException as error:
+            raise IkologikException("Error while deleting a dashboardwidget")
+        except Exception as ex:
+            raise IkologikException("Error while deleting a dashboardwidget")
