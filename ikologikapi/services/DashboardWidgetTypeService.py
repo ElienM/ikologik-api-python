@@ -10,10 +10,10 @@ class DashboardWidgetTypeService(AbstractIkologikService):
 
     # CRUD Actions
 
-    def get_url(self):
+    def get_url(self) -> str:
         return f'{self.jwtHelper.get_url()}/api/v2/dashboardwidgettype'
 
-    def get_by_name(self, name: str):
+    def get_by_name(self, name: str) -> object:
         # Prepare the search
         search = Search()
         search.add_filter("name", "EQ", [name])
@@ -27,7 +27,7 @@ class DashboardWidgetTypeService(AbstractIkologikService):
         else:
             return None
 
-    def get_by_type(self, type: str):
+    def get_by_type(self, type: str) -> object:
         # Prepare the search
         search = Search()
         search.add_filter("type", "EQ", [type])

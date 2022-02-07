@@ -9,5 +9,5 @@ class AlertService(AbstractIkologikInstallationService):
 
     # CRUD Actions
 
-    def get_url(self, customer, installation):
+    def get_url(self, customer: str, installation: str) -> str:
         return f'{self.jwtHelper.get_url()}/api/v2/customer/{customer}/installation/{installation}/alert'
