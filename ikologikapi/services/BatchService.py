@@ -10,14 +10,15 @@ class BatchService(AbstractIkologikInstallationService):
 
     # CRUD Actions
 
-    def get_url(self, customer, installation):
+    def get_url(self, customer, installation) -> str:
         return f'{self.jwtHelper.get_url()}/api/v2/customer/{customer}/installation/{installation}/batch'
 
-    def get_by_code(self, customer: str, installation: str, batchType: str, code: str):
+    def get_by_code(self, customer: str, installation: str, batch_type: str, code: str) -> object:
+        # Prepare the search
         search = Search()
-        # search.add_filter("batchType", "EQ", [batchType])
-        search.add_multiple_filters([("batchType", "EQ", [batchType]), ("code", "EQ", [code])])
+        search.add_filters([("batchType", "EQ", [batch_type]), ("code", "EQ", [code])])
         search.add_order("batchType", "ASC")
+        search.set_pagination(0, 1)
 
         # Query
         result = self.search(customer, installation, search)

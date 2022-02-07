@@ -10,13 +10,15 @@ class DataImportTypeService(AbstractIkologikInstallationService):
 
     # CRUD Actions
 
-    def get_url(self, customer, installation):
+    def get_url(self, customer: str, installation: str) -> str:
         return f'{self.jwtHelper.get_url()}/api/v2/customer/{customer}/installation/{installation}/dataimporttype'
 
-    def get_by_name(self, customer: str, installation: str, name):
+    def get_by_name(self, customer: str, installation: str, name: str) -> object:
+        # Prepare the search
         search = Search()
-        search.add_filter = ("name", "EQ", [name])
+        search.add_filter("name", "EQ", [name])
         search.add_order("name", "ASC")
+        search.set_pagination(0, 1)
 
         # Query
         result = self.search(customer, installation, search)

@@ -16,7 +16,7 @@ class AbstractIkologikCustomerService(AbstractIkologikService):
 
     # CRUD Actions
 
-    def get_url(self, customer: str):
+    def get_url(self, customer: str) -> str:
         pass
 
     def get_by_id(self, customer: str, id: str) -> object:
@@ -29,11 +29,11 @@ class AbstractIkologikCustomerService(AbstractIkologikService):
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
                 return result
             else:
-                raise IkologikException("Request returned status " + str(response.status_code))
+                raise IkologikException("Error while performing get_by_id, the request returned status " + str(response.status_code))
         except IkologikException as ex:
             raise ex
         except Exception as ex:
-            raise IkologikException("Error while getting customer with id: " + id)
+            raise IkologikException("Error while performing get_by_id")
 
     def list(self, customer: str) -> list:
         try:
@@ -45,12 +45,11 @@ class AbstractIkologikCustomerService(AbstractIkologikService):
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
                 return result
             else:
-                raise IkologikException("Request returned status " + str(response.status_code))
+                raise IkologikException("Error while performing list, the request returned status " + str(response.status_code))
         except IkologikException as ex:
             raise ex
         except Exception as ex:
-            raise IkologikException("Error while querying list of customers")
-
+            raise IkologikException("Error while performing list")
 
     def search(self, customer: str, search: Search) -> list:
         try:
@@ -64,11 +63,11 @@ class AbstractIkologikCustomerService(AbstractIkologikService):
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
                 return result
             else:
-                raise IkologikException("Request returned status " + str(response.status_code))
+                raise IkologikException("Error while performing search, the request returned status " + str(response.status_code))
         except IkologikException as ex:
             raise ex
         except Exception as ex:
-            raise IkologikException("Error while searching for a customer")
+            raise IkologikException("Error while performing search")
 
     def create(self, customer: str, o: object) -> object:
         try:
@@ -82,11 +81,11 @@ class AbstractIkologikCustomerService(AbstractIkologikService):
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
                 return result
             else:
-                raise IkologikException("Request returned status " + str(response.status_code))
+                raise IkologikException("Error while performing create, the request returned status " + str(response.status_code))
         except IkologikException as ex:
             raise ex
         except Exception as ex:
-            raise IkologikException("Error while creating a customer")
+            raise IkologikException("Error while performing create")
 
     def update(self, customer: str, id: str, o: object) -> object:
         try:
@@ -100,11 +99,11 @@ class AbstractIkologikCustomerService(AbstractIkologikService):
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
                 return result
             else:
-                raise IkologikException("Request returned status " + str(response.status_code))
+                raise IkologikException("Error while performing update, the request returned status " + str(response.status_code))
         except IkologikException as ex:
             raise ex
         except Exception as ex:
-            raise IkologikException("Error while updating a customer")
+            raise IkologikException("Error while performing update")
 
     def delete(self, customer: str, id: str):
         try:
@@ -113,8 +112,8 @@ class AbstractIkologikCustomerService(AbstractIkologikService):
                 headers=self.get_headers()
             )
             if response.status_code != 204:
-                raise IkologikException("Request returned status " + str(response.status_code))
-        except IkologikException as error:
-            raise IkologikException("Error while deleting a customer")
+                raise IkologikException("Error while performing delete, the request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
         except Exception as ex:
-            raise IkologikException("Error while deleting a customer")
+            raise IkologikException("Error while performing delete")

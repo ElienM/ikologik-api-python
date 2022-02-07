@@ -9,4 +9,3 @@ class DataImport(AbstractIkologikInstallationsObject):
         self.status = None
         self.active = True
         self.parameters = []
-

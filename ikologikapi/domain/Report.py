@@ -20,4 +20,3 @@ class Report(AbstractIkologikInstallationsObject):
         self.user = None
         self.status = None
         self.fields = None
-

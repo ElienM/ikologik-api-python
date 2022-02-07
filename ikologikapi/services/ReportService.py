@@ -1,10 +1,12 @@
-from types import SimpleNamespace
 import json
+from types import SimpleNamespace
+
 import requests
 
 from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
-from ikologikapi.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
 from ikologikapi.IkologikException import IkologikException
+from ikologikapi.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
+
 
 class ReportService(AbstractIkologikInstallationService):
 
@@ -13,8 +15,24 @@ class ReportService(AbstractIkologikInstallationService):
 
     # CRUD Actions
 
-    def get_url(self, customer: str, installation: str, report_type: str):
+    def get_url(self, customer: str, installation: str, report_type: str) -> str:
         return f'{self.jwtHelper.get_url()}/api/v2/customer/{customer}/installation/{installation}/reporttype/{report_type}/report'
+
+    def build(self, customer: str, installation: str, report_type: str) -> object:
+        try:
+            response = requests.get(
+                f'{self.get_url(customer, installation, report_type)}/build',
+                headers=self.get_headers()
+            )
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Error while performing build, the request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while performing build")
 
     def create(self, customer: str, installation: str, report_type: str, o: object) -> object:
         try:
@@ -28,29 +46,13 @@ class ReportService(AbstractIkologikInstallationService):
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
                 return result
             else:
-                raise IkologikException("Request returned status " + str(response.status_code))
+                raise IkologikException("Error while performing create, the request returned status " + str(response.status_code))
         except IkologikException as ex:
             raise ex
         except Exception as ex:
-            raise IkologikException("Error while creating the report")
+            raise IkologikException("Error while performing create")
 
-    def build(self, customer: str, installation: str, report_type: str) -> object:
-        try:
-            response = requests.get(
-                f'{self.get_url(customer, installation, report_type)}/build',
-                headers=self.get_headers()
-            )
-            if response.status_code == 200:
-                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-                return result
-            else:
-                raise IkologikException("Request returned status " + str(response.status_code))
-        except IkologikException as ex:
-            raise ex
-        except Exception as ex:
-            raise IkologikException("Error while building the report")
-
-    def update_status (self, customer:str, installation: str, report_type: str, report_id: str, status: str) -> object:
+    def update_status(self, customer: str, installation: str, report_type: str, report_id: str, status: str) -> object:
         try:
             response = requests.put(
                 f'{self.get_url(customer, installation, report_type)}/{report_id}/status',
@@ -61,13 +63,13 @@ class ReportService(AbstractIkologikInstallationService):
                 result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
                 return result
             else:
-                raise IkologikException(f'Request returned status:' + str(response.status_code))
+                raise IkologikException("Error while performing update_status, the request returned status " + str(response.status_code))
         except IkologikException as ex:
             raise ex
         except Exception as ex:
-            raise IkologikException("Error while updating status of the report")
+            raise IkologikException("Error while performing update_status")
 
-    def upload (self, customer: str, installation: str, report_type: str, report_id: str) -> object:
+    def upload(self, customer: str, installation: str, report_type: str, report_id: str) -> object:
         try:
             response = requests.get(
                 f'{self.get_url(customer, installation, report_type)}/{report_id}/upload',
@@ -77,9 +79,8 @@ class ReportService(AbstractIkologikInstallationService):
                 result = response.content.decode("utf-8")
                 return result
             else:
-                raise IkologikException("Request returned status " + str(response.status_code))
+                raise IkologikException("Error while performing upload, the request returned status " + str(response.status_code))
         except IkologikException as ex:
             raise ex
         except Exception as ex:
-            raise IkologikException("Error while getting the uploadlink for the report")
-
+            raise IkologikException("Error while performing upload")

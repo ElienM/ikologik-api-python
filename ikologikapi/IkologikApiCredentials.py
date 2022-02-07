@@ -56,10 +56,10 @@ class IkologikApiCredentials(object):
                     self.jwtExpirationDate = result.expiresAt
                     return self.jwt
                 else:
-                    raise IkologikException("Request returned status " + str(response.status_code) )
+                    raise IkologikException("Request returned status " + str(response.status_code))
             else:
                 return self.jwt
         except IkologikException as ex:
             raise ex
-        except Exception as error:
+        except Exception as ex:
             raise IkologikException("Error while getting jwt token")
