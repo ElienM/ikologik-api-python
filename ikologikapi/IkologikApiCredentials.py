@@ -4,6 +4,8 @@ from types import SimpleNamespace
 
 import requests
 
+from ikologikapi.IkologikException import IkologikException
+
 
 class IkologikApiCredentials(object):
 
@@ -48,12 +50,16 @@ class IkologikApiCredentials(object):
                 )
 
                 # Process response
-                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
-                self.jwt = result.accessToken
-                self.jwtExpirationDate = result.expiresAt
-
-                return self.jwt
+                if response.status_code == 200:
+                    result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                    self.jwt = result.accessToken
+                    self.jwtExpirationDate = result.expiresAt
+                    return self.jwt
+                else:
+                    raise IkologikException("Request returned status " + str(response.status_code))
             else:
                 return self.jwt
-        except requests.exceptions.HTTPError as error:
-            print(error)
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while getting jwt token")

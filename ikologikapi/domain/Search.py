@@ -36,7 +36,7 @@ class Search(object):
             )
         )
 
-    def add_multiple_filters(self, filter: SearchFilter):
+    def add_filters(self, filter: any):
         for item in filter:
             self.filter.append(
                 SearchFilter(
