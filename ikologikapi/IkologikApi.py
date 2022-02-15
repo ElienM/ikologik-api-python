@@ -3,6 +3,7 @@ from ikologikapi.services.AlertService import AlertService
 from ikologikapi.services.AlertTypeService import AlertTypeService
 from ikologikapi.services.BatchService import BatchService
 from ikologikapi.services.BatchTypeService import BatchTypeService
+from ikologikapi.services.CustomerService import CustomerService
 from ikologikapi.services.DashboardService import DashboardService
 from ikologikapi.services.DashboardWidgetService import DashboardWidgetService
 from ikologikapi.services.DashboardWidgetTypeService import DashboardWidgetTypeService
@@ -23,6 +24,7 @@ class IkologikAPI:
         self.alertType = AlertTypeService(self.apiCredentials)
         self.batch = BatchService(self.apiCredentials)
         self.batchType = BatchTypeService(self.apiCredentials)
+        self.customer = CustomerService(self.apiCredentials)
         self.dashboard = DashboardService(self.apiCredentials)
         self.dashboardWidget = DashboardWidgetService(self.apiCredentials)
         self.dashboardWidgetType = DashboardWidgetTypeService(self.apiCredentials)
@@ -33,3 +35,6 @@ class IkologikAPI:
         self.reportType = ReportTypeService(self.apiCredentials)
         self.tag = TagService(self.apiCredentials)
         self.tagAlertType = TagAlertTypeService(self.apiCredentials)
+
+    def login(self):
+        return self.apiCredentials.get_jwt()
