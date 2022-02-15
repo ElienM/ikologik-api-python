@@ -15,6 +15,17 @@ installationId = os.getenv('INSTALLATION')
 dataImportTypeId = os.getenv('DATAIMPORTTYPE')
 dataImportId = os.getenv('DATAIMPORT')
 
+## Login
+print('## Logging-in ##')
+api.login()
+print('')
+
+## Get customer
+print('## Customer ##')
+customer = api.customer.get_by_id(customerId)
+print(customer.name)
+print('')
+
 ## List installations
 print('## Installations ##')
 installations = api.installation.list(customerId)
