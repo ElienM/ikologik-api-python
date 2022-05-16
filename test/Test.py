@@ -1,8 +1,12 @@
+import datetime
 import os
 
 from ikologikapi.IkologikApi import IkologikAPI
 
 ## Prepare the API
+from ikologikapi.dataiterator.GraphDataIterator import GraphDataIterator
+from ikologikapi.domain.Search import Search
+
 api = IkologikAPI(
     url=os.getenv('URL'),
     username=os.getenv('USERNAME'),
@@ -14,6 +18,7 @@ customerId = os.getenv('CUSTOMER')
 installationId = os.getenv('INSTALLATION')
 dataImportTypeId = os.getenv('DATAIMPORTTYPE')
 dataImportId = os.getenv('DATAIMPORT')
+tag = os.getenv('TAG')
 
 ## Login
 print('## Logging-in ##')
@@ -60,3 +65,38 @@ dataImportTypes = api.dataImportType.list(customerId, installationId)
 for dataImportType in dataImportTypes:
     print(dataImportType.name)
 print('')
+
+## Get meter graph
+
+print('## Get meter graph')
+graphMeter = api.graph.get_data(installationId, tag, 1652392800000, 1652479200000)
+print(graphMeter)
+
+graphMeter = api.graph.get_data_with_data_type(installationId, tag, 'DATA', 1652392800000, 1652479200000)
+print(graphMeter)
+
+## Get graph data
+
+print('## Get meter graph data')
+graphMeterData = api.graph.get_graph_data(installationId, tag, 'DATA', 1652392800000, 1652479200000, 50)
+print(graphMeterData)
+
+
+## Graph data iterator
+
+graphDataIterator = GraphDataIterator(installationId, 1652392800000, 1652479200000)
+graphDataIterator.add_meters([{'id': tag}])
+graphDataIterator.init()
+
+tags = [{'id': tag}]
+
+counter = 0
+while graphDataIterator.has_next():
+    graphDataIterator.next()
+
+    for tag in tags:
+        data = graphDataIterator.get_meter_data(tag['id'])
+
+        print(f'Date: {datetime.datetime.fromtimestamp(data.date/1000)}, Value: {data.value}')
+
+

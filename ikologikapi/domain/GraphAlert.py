@@ -1,5 +1,5 @@
-class GraphData:
+class GraphAlert:
     def __init__(self):
-        date = None
-        title = None
-        message = None
+        self.date = None
+        self.title = None
+        self.message = None
