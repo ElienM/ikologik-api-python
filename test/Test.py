@@ -19,6 +19,7 @@ installationId = os.getenv('INSTALLATION')
 dataImportTypeId = os.getenv('DATAIMPORTTYPE')
 dataImportId = os.getenv('DATAIMPORT')
 tag = os.getenv('TAG')
+second_tag = os.getenv('TAG2')
 
 ## Login
 print('## Logging-in ##')
@@ -81,14 +82,14 @@ print('## Get meter graph data')
 graphMeterData = api.graph.get_graph_data(installationId, tag, 'DATA', 1652392800000, 1652479200000, 50)
 print(graphMeterData)
 
-
 ## Graph data iterator
 
-graphDataIterator = GraphDataIterator(installationId, 1652392800000, 1652479200000)
-graphDataIterator.add_meters([{'id': tag}])
+tags = [{'id': tag}, {'id': second_tag}]
+
+graphDataIterator = GraphDataIterator(installationId, 1652392800000, 1652479200000, api)
+graphDataIterator.add_meters(tags)
 graphDataIterator.init()
 
-tags = [{'id': tag}]
 
 counter = 0
 while graphDataIterator.has_next():
@@ -97,6 +98,6 @@ while graphDataIterator.has_next():
     for tag in tags:
         data = graphDataIterator.get_meter_data(tag['id'])
 
-        print(f'Date: {datetime.datetime.fromtimestamp(data.date/1000)}, Value: {data.value}')
+        print(f'Tag: {tag["id"]}, Date: {datetime.datetime.fromtimestamp(data.date/1000)}, Value: {data.value}')
 
 

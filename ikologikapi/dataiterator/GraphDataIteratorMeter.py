@@ -1,6 +1,3 @@
-import os
-
-from ikologikapi.IkologikApi import IkologikAPI
 from ikologikapi.domain.GraphData import GraphData
 
 
@@ -13,11 +10,7 @@ class GraphDataIteratorMeter:
         self.current_data = None
         self.data_buffer = None
         self.has_more_data = True
-        self.api = IkologikAPI(
-            url=os.getenv('URL'),
-            username=os.getenv('USERNAME'),
-            password=os.getenv('PASSWORD')
-        )
+        self.api = None
 
     def has_next(self):
         self.load_more_data()

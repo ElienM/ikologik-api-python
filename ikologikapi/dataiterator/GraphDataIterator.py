@@ -2,7 +2,7 @@ from ikologikapi.dataiterator.GraphDataIteratorMeter import GraphDataIteratorMet
 
 
 class GraphDataIterator:
-    def __init__(self, installation, start_date, end_date):
+    def __init__(self, installation, start_date, end_date, api):
         self.installation = installation
         self.start_date = start_date
         self.end_date = end_date
@@ -10,16 +10,17 @@ class GraphDataIterator:
         self.graph_data_meter_map = {}
         self.counter = 0
         self.initialized = False
+        self.api = api
 
     def add_meters(self, meters):
         for meter in meters:
-            # self.graph_data_meter_map[meter.id] = GraphDataIteratorMeter(meter.id)
             self.graph_data_meter_map[meter["id"]] = GraphDataIteratorMeter(self.installation, meter["id"])
 
     def init(self):
         for key, graph_data_iterator_meter in self.graph_data_meter_map.items():
             graph_data_iterator_meter.start_date = self.start_date
             graph_data_iterator_meter.end_date = self.end_date
+            graph_data_iterator_meter.api = self.api
 
         self.initialized = True
         return self

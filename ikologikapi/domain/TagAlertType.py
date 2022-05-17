@@ -5,6 +5,7 @@ class TagAlertType(AbstractIkologikObject):
 
     def __init__(self):
         super().__init__()
+
         self.meter = None
         self.value = None
         self.type = None
