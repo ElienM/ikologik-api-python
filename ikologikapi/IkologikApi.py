@@ -9,6 +9,7 @@ from ikologikapi.services.DashboardWidgetService import DashboardWidgetService
 from ikologikapi.services.DashboardWidgetTypeService import DashboardWidgetTypeService
 from ikologikapi.services.DataImportService import DataImportService
 from ikologikapi.services.DataImportTypeService import DataImportTypeService
+from ikologikapi.services.GraphService import GraphService
 from ikologikapi.services.InstallationService import InstallationService
 from ikologikapi.services.ReportService import ReportService
 from ikologikapi.services.ReportTypeService import ReportTypeService
@@ -30,6 +31,7 @@ class IkologikAPI:
         self.dashboardWidgetType = DashboardWidgetTypeService(self.apiCredentials)
         self.dataImport = DataImportService(self.apiCredentials)
         self.dataImportType = DataImportTypeService(self.apiCredentials)
+        self.graph = GraphService(self.apiCredentials)
         self.installation = InstallationService(self.apiCredentials)
         self.report = ReportService(self.apiCredentials)
         self.reportType = ReportTypeService(self.apiCredentials)
