@@ -1,10 +1,11 @@
 from ikologikapi.domain.AbstractIkologikInstallationsObject import AbstractIkologikInstallationsObject
 
 
-class Dashboard(AbstractIkologikInstallationsObject):
+class DataImportType(AbstractIkologikInstallationsObject):
 
     def __init__(self, customer: str, installation: str):
         super().__init__(customer, installation)
+
         self.name = None
         self.type = None
         self.active = True
@@ -20,8 +21,8 @@ class DataImportTypeMapping(object):
 
 class DataImportMappingTag(object):
     def __init__(self):
-        self.sourceId
-        self.sourceName
-        self.sourceDataType
-        self.sourceDescription
-        self.tag
+        self.sourceId = None
+        self.sourceName = None
+        self.sourceDataType = None
+        self.sourceDescription = None
+        self.tag = None

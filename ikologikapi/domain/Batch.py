@@ -5,6 +5,7 @@ class Batch(AbstractIkologikInstallationsObject):
 
     def __init__(self, customer: str, installation: str):
         super().__init__(customer, installation)
+
         self.batchType = None
         self.code = None
         self.description = None
