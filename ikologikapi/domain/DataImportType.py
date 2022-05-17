@@ -26,4 +26,3 @@ class DataImportMappingTag(object):
         self.sourceDataType = None
         self.sourceDescription = None
         self.tag = None
-        
