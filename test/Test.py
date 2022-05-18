@@ -20,6 +20,9 @@ dataImportTypeId = os.getenv('DATAIMPORTTYPE')
 dataImportId = os.getenv('DATAIMPORT')
 tag = os.getenv('TAG')
 second_tag = os.getenv('TAG2')
+maintenance_type_id = os.getenv('MAINTENANCE_TYPE')
+maintenance_type_field_id = os.getenv('MAINTENANCE_TYPE_FIELD_TYPE')
+maintenance_task = os.getenv('MAINTENANCE_TASK')
 
 ## Login
 print('## Logging-in ##')
@@ -99,5 +102,40 @@ while graphDataIterator.has_next():
         data = graphDataIterator.get_meter_data(tag['id'])
 
         print(f'Tag: {tag["id"]}, Date: {datetime.datetime.fromtimestamp(data.date/1000)}, Value: {data.value}')
+
+## Maintenance type
+
+print('## Get maintenance type list')
+mt_list = api.maintenanceType.list(customerId)
+print(mt_list)
+
+print('## Get maintenance type')
+mt = api.maintenanceType.get_by_id(customerId, maintenance_type_id)
+print(mt)
+
+print('## Get maintenance type field type list')
+mtft_list = api.maintenanceTypeFieldType.list(customerId, maintenance_type_id)
+print(mtft_list)
+
+print('## Get maintenance type field type')
+mtft = api.maintenanceTypeFieldType.get_by_id(customerId, maintenance_type_id, maintenance_type_field_id)
+print(mtft)
+
+## Maintenance task
+
+print('## Get maintenance tasks')
+mt_list = api.maintenanceTask.list(customerId, installationId)
+print(mt_list)
+
+print('## Get maintenance task')
+mt = api.maintenanceTask.get_by_id(customerId, installationId, maintenance_task)
+print(mt)
+
+print('## Get maintenance task update')
+mt = api.maintenanceTask.update_status(customerId, installationId, maintenance_task, 'STATUS_4_FINISHED')
+print(mt)
+
+
+
 
 
