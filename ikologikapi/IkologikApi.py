@@ -11,6 +11,9 @@ from ikologikapi.services.DataImportService import DataImportService
 from ikologikapi.services.DataImportTypeService import DataImportTypeService
 from ikologikapi.services.GraphService import GraphService
 from ikologikapi.services.InstallationService import InstallationService
+from ikologikapi.services.MaintenanceTaskService import MaintenanceTaskService
+from ikologikapi.services.MaintenanceTypeService import MaintenanceTypeService
+from ikologikapi.services.MaintenanceTypeFieldTypeService import MaintenanceTypeFieldTypeService
 from ikologikapi.services.ReportService import ReportService
 from ikologikapi.services.ReportTypeService import ReportTypeService
 from ikologikapi.services.TagAlertTypeService import TagAlertTypeService
@@ -33,6 +36,9 @@ class IkologikAPI:
         self.dataImportType = DataImportTypeService(self.apiCredentials)
         self.graph = GraphService(self.apiCredentials)
         self.installation = InstallationService(self.apiCredentials)
+        self.maintenanceTask = MaintenanceTaskService(self.apiCredentials)
+        self.maintenanceType = MaintenanceTypeService(self.apiCredentials)
+        self.maintenanceTypeFieldType = MaintenanceTypeFieldTypeService(self.apiCredentials)
         self.report = ReportService(self.apiCredentials)
         self.reportType = ReportTypeService(self.apiCredentials)
         self.tag = TagService(self.apiCredentials)
