@@ -24,51 +24,51 @@ maintenance_type_id = os.getenv('MAINTENANCE_TYPE')
 maintenance_type_field_id = os.getenv('MAINTENANCE_TYPE_FIELD_TYPE')
 maintenance_task = os.getenv('MAINTENANCE_TASK')
 
-## Login
-print('## Logging-in ##')
-api.login()
-print('')
-
-## Get customer
-print('## Customer ##')
-customer = api.customer.get_by_id(customerId)
-print(customer.name)
-print('')
-
-## List installations
-print('## Installations ##')
-installations = api.installation.list(customerId)
-for installation in installations:
-    print(installation.name)
-print('')
-
-## List tags
-print('## Tags ##')
-tags = api.tag.list(customerId, installationId)
-for tag in tags:
-    print(tag.name)
-print('')
-
-## List dashboards
-print('## Dashboards ##')
-dashboards = api.dashboard.list(customerId, installationId)
-for dashboard in dashboards:
-    print(dashboard.name)
-print('')
-
-## List dashboard widget types
-print('## Dashboard widget type ##')
-dashboardWidgetTypes = api.dashboardWidgetType.list()
-for dashboardWidgetType in dashboardWidgetTypes:
-    print(dashboardWidgetType.name)
-print('')
-
-## List data import types
-print('## Data import type ##')
-dataImportTypes = api.dataImportType.list(customerId, installationId)
-for dataImportType in dataImportTypes:
-    print(dataImportType.name)
-print('')
+# ## Login
+# print('## Logging-in ##')
+# api.login()
+# print('')
+#
+# ## Get customer
+# print('## Customer ##')
+# customer = api.customer.get_by_id(customerId)
+# print(customer.name)
+# print('')
+#
+# ## List installations
+# print('## Installations ##')
+# installations = api.installation.list(customerId)
+# for installation in installations:
+#     print(installation.name)
+# print('')
+#
+# ## List tags
+# print('## Tags ##')
+# tags = api.tag.list(customerId, installationId)
+# for tag in tags:
+#     print(tag.name)
+# print('')
+#
+# ## List dashboards
+# print('## Dashboards ##')
+# dashboards = api.dashboard.list(customerId, installationId)
+# for dashboard in dashboards:
+#     print(dashboard.name)
+# print('')
+#
+# ## List dashboard widget types
+# print('## Dashboard widget type ##')
+# dashboardWidgetTypes = api.dashboardWidgetType.list()
+# for dashboardWidgetType in dashboardWidgetTypes:
+#     print(dashboardWidgetType.name)
+# print('')
+#
+# ## List data import types
+# print('## Data import type ##')
+# dataImportTypes = api.dataImportType.list(customerId, installationId)
+# for dataImportType in dataImportTypes:
+#     print(dataImportType.name)
+# print('')
 
 ## Get meter graph
 
@@ -82,7 +82,7 @@ print(graphMeter)
 ## Get graph data
 
 print('## Get meter graph data')
-graphMeterData = api.graph.get_graph_data(installationId, tag, 'DATA', 1652392800000, 1652479200000, 50)
+graphMeterData = api.graph.get_graph_data(installationId, tag, 'DATA', 1652392800000, 1652479200000, 50, False)
 print(graphMeterData)
 
 ## Graph data iterator

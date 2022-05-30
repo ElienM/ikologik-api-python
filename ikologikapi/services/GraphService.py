@@ -144,11 +144,11 @@ class GraphService:
         except Exception as ex:
             raise IkologikException("Error while performing get_active_meter_list")
 
-    def get_graph_data(self, installation, meter_id, data_type, start_date, end_date, limit):
+    def get_graph_data(self, installation, meter_id, data_type, start_date, end_date, limit, auto_reduce):
         try:
             response = requests.get(
                 self.get_url_graph(installation, meter_id) + f'/data/{data_type}/{start_date}/{end_date}',
-                params={'limit': limit},
+                params={'limit': limit, 'autoReduce': auto_reduce},
                 headers=self.get_headers()
             )
             if response.status_code == 200:
