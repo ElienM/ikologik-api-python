@@ -36,6 +36,24 @@ class MaintenanceTaskService(AbstractIkologikInstallationService):
         except Exception as ex:
             raise IkologikException("Error while performing update_status")
 
+    def update_comment(self, customer: str, installation: str, id: str, comment) -> object:
+        try:
+            response = requests.put(
+                f'{self.get_url(customer, installation)}/{id}/comment',
+                data=comment,
+                headers=self.get_headers({'Content-Type': 'text/plain'})
+            )
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Error while performing update_comment, the request returned status " + str(
+                    response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while performing update_comment")
+
     def get_by_name(self, customer: str, installation: str, name: str) -> object:
         # Prepare the search
         search = Search()
