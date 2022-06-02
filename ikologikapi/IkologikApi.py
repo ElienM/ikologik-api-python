@@ -14,6 +14,7 @@ from ikologikapi.services.InstallationService import InstallationService
 from ikologikapi.services.MaintenanceTaskService import MaintenanceTaskService
 from ikologikapi.services.MaintenanceTypeService import MaintenanceTypeService
 from ikologikapi.services.MaintenanceTypeFieldTypeService import MaintenanceTypeFieldTypeService
+from ikologikapi.services.ProductService import ProductService
 from ikologikapi.services.ReportService import ReportService
 from ikologikapi.services.ReportTypeService import ReportTypeService
 from ikologikapi.services.TagAlertTypeService import TagAlertTypeService
@@ -39,6 +40,7 @@ class IkologikAPI:
         self.maintenanceTask = MaintenanceTaskService(self.apiCredentials)
         self.maintenanceType = MaintenanceTypeService(self.apiCredentials)
         self.maintenanceTypeFieldType = MaintenanceTypeFieldTypeService(self.apiCredentials)
+        self.product = ProductService(self.apiCredentials)
         self.report = ReportService(self.apiCredentials)
         self.reportType = ReportTypeService(self.apiCredentials)
         self.tag = TagService(self.apiCredentials)
