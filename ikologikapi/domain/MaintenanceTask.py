@@ -13,5 +13,6 @@ class MaintenanceTask(AbstractIkologikInstallationsObject):
         self.startDate = None
         self.endDate = None
         self.description = None
+        self.comment = None
 
         self.fields = {}
