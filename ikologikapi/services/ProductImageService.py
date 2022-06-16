@@ -143,15 +143,17 @@ class ProductImageService(AbstractIkologikInstallationService):
 
     def upload(self, customer: str, installation: str, shop_product: str, filename: str):
         try:
-            params={'filename': filename}
+            params = {'filename': filename}
             response = requests.get(
                 f'{self.get_url(customer, installation, shop_product)}/upload',
                 params=params,
                 headers=self.get_headers()
             )
             if response.status_code == 200:
-                result = json.loads(response.content, object_hook=lambda  d: SimpleNamespace(**d))
+                result = response.content.decode("utf-8")
                 return result
+            else:
+                raise IkologikException("Error while performing upload, the request returned status " + str(response.status_code))
         except IkologikException as ex:
             raise ex
         except Exception as ex:
