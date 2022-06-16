@@ -20,13 +20,14 @@ class ProductImageService(AbstractIkologikInstallationService):
 
     def get_by_id(self, customer: str, installation: str, shop_product: str, id: str, include_upload_url: bool = False, include_download_url: bool = False, include_download_thumbnail_url: bool = False, include_download_view_url: bool = False) -> object:
         try:
+            params = {'includeUploadUrl': include_upload_url,
+                      'includeDownloadUrl': include_download_url,
+                      'includeDownloadThumbnailUrl': include_download_thumbnail_url,
+                      'includeDownloadViewUrl': include_download_view_url
+                      }
             response = requests.get(
                 self.get_url(customer, installation, shop_product) + f'/{id}',
-                params={'includeUploadUrl': include_upload_url,
-                        'includeDownloadUrl': include_download_url,
-                        'includeDownloadThumbnailUrl': include_download_thumbnail_url,
-                        'includeDownloadViewUrl': include_download_view_url
-                        },
+                params=params,
                 headers=self.get_headers()
             )
             if response.status_code == 200:
@@ -41,13 +42,14 @@ class ProductImageService(AbstractIkologikInstallationService):
 
     def list(self, customer: str, installation: str, shop_product: str, include_upload_url: bool = False, include_download_url: bool = False, include_download_thumbnail_url: bool = False, include_download_view_url: bool = False) -> list:
         try:
+            params = {'includeUploadUrl': include_upload_url,
+                      'includeDownloadUrl': include_download_url,
+                      'includeDownloadThumbnailUrl': include_download_thumbnail_url,
+                      'includeDownloadViewUrl': include_download_view_url
+                      }
             response = requests.get(
                 f'{self.get_url(customer, installation, shop_product)}',
-                params={'includeUploadUrl': include_upload_url,
-                        'includeDownloadUrl': include_download_url,
-                        'includeDownloadThumbnailUrl': include_download_thumbnail_url,
-                        'includeDownloadViewUrl': include_download_view_url
-                        },
+                params=params,
                 headers=self.get_headers()
             )
             if response.status_code == 200:
@@ -62,14 +64,15 @@ class ProductImageService(AbstractIkologikInstallationService):
 
     def search(self, customer: str, installation: str, shop_product: str, search, include_upload_url: bool = False, include_download_url: bool = False, include_download_thumbnail_url: bool = False, include_download_view_url: bool = False) -> list:
         try:
+            params = {'includeUploadUrl': include_upload_url,
+                      'includeDownloadUrl': include_download_url,
+                      'includeDownloadThumbnailUrl': include_download_thumbnail_url,
+                      'includeDownloadViewUrl': include_download_view_url
+                      }
             data = json.dumps(search, default=lambda o: o.__dict__)
             response = requests.post(
                 f'{self.get_url(customer, installation, shop_product)}/search',
-                params={'includeUploadUrl': include_upload_url,
-                        'includeDownloadUrl': include_download_url,
-                        'includeDownloadThumbnailUrl': include_download_thumbnail_url,
-                        'includeDownloadViewUrl': include_download_view_url
-                        },
+                params=params,
                 data=data,
                 headers=self.get_headers()
             )
@@ -85,14 +88,15 @@ class ProductImageService(AbstractIkologikInstallationService):
 
     def create(self, customer: str, installation: str, shop_product: str, o: object, include_upload_url: bool = False, include_download_url: bool = False, include_download_thumbnail_url: bool = False, include_download_view_url: bool = False) -> object:
         try:
+            params = {'includeUploadUrl': include_upload_url,
+                      'includeDownloadUrl': include_download_url,
+                      'includeDownloadThumbnailUrl': include_download_thumbnail_url,
+                      'includeDownloadViewUrl': include_download_view_url
+                      }
             data = json.dumps(o, default=lambda o: o.__dict__)
             response = requests.post(
                 self.get_url(customer, installation, shop_product),
-                params={'includeUploadUrl': include_upload_url,
-                        'includeDownloadUrl': include_download_url,
-                        'includeDownloadThumbnailUrl': include_download_thumbnail_url,
-                        'includeDownloadViewUrl': include_download_view_url
-                        },
+                params=params,
                 data=data,
                 headers=self.get_headers()
             )
@@ -139,12 +143,13 @@ class ProductImageService(AbstractIkologikInstallationService):
 
     def upload(self, customer: str, installation: str, shop_product: str, filename: str):
         try:
+            params={'filename': filename}
             response = requests.get(
                 f'{self.get_url(customer, installation, shop_product)}/upload',
-                params=filename,
+                params=params,
                 headers=self.get_headers()
             )
-            if response.status_code != 200:
+            if response.status_code == 200:
                 result = json.loads(response.content, object_hook=lambda  d: SimpleNamespace(**d))
                 return result
         except IkologikException as ex:
