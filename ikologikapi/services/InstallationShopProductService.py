@@ -2,7 +2,7 @@ from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
 from ikologikapi.services.AbstractIkologikInstallationService import AbstractIkologikInstallationService
 
 
-class ProductService(AbstractIkologikInstallationService):
+class InstallationShopProductService(AbstractIkologikInstallationService):
 
     def __init__(self, jwtHelper: IkologikApiCredentials):
         super().__init__(jwtHelper)

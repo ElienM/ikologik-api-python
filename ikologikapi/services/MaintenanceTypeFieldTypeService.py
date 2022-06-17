@@ -136,7 +136,6 @@ class MaintenanceTypeFieldTypeService(AbstractIkologikCustomerService):
         except Exception as ex:
             raise IkologikException("Error while performing delete")
 
-
     def get_by_name(self, customer: str, installation: str, name: str) -> object:
         # Prepare the search
         search = Search()

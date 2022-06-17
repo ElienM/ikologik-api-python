@@ -17,4 +17,3 @@ class ProductImage(AbstractIkologikInstallationsObject):
         self.downloadUrl = None
         self.downloadThumbnailUrl = None
         self.downloadViewUrl = None
-

@@ -3,7 +3,7 @@ from ikologikapi.domain.AbstractIkologikInstallationsObject import AbstractIkolo
 
 class Product(AbstractIkologikInstallationsObject):
 
-    def __init__(self, customer: str, installation: str):
+    def __init__(self, customer: str, installation: str = None):
         super().__init__(customer, installation)
 
         self.groups = None
