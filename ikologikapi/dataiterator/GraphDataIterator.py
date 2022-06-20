@@ -74,5 +74,3 @@ class GraphDataIterator:
                 return date1
             else:
                 return date2
-
-

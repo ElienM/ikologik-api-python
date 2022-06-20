@@ -8,6 +8,3 @@ class ProductGroup(AbstractIkologikInstallationsObject):
 
         self.name = None
         self.count = None
-
-
-

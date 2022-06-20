@@ -56,4 +56,3 @@ class GraphDataIteratorMeter:
                 )
 
             self.data_buffer = converted_list
-

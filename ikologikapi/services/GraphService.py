@@ -194,4 +194,3 @@ class GraphService:
             raise ex
         except Exception as ex:
             raise IkologikException("Error while performing get_by_id")
-
