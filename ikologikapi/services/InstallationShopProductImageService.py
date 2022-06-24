@@ -20,11 +20,12 @@ class InstallationShopProductImageService(AbstractIkologikInstallationService):
 
     def get_by_id(self, customer: str, installation: str, shop_product: str, id: str, include_upload_url: bool = False, include_download_url: bool = False, include_download_thumbnail_url: bool = False, include_download_view_url: bool = False) -> object:
         try:
-            params = {'includeUploadUrl': include_upload_url,
-                      'includeDownloadUrl': include_download_url,
-                      'includeDownloadThumbnailUrl': include_download_thumbnail_url,
-                      'includeDownloadViewUrl': include_download_view_url
-                      }
+            params = {
+                'includeUploadUrl': include_upload_url,
+                'includeDownloadUrl': include_download_url,
+                'includeDownloadThumbnailUrl': include_download_thumbnail_url,
+                'includeDownloadViewUrl': include_download_view_url
+            }
             response = requests.get(
                 self.get_url(customer, installation, shop_product) + f'/{id}',
                 params=params,
@@ -42,11 +43,12 @@ class InstallationShopProductImageService(AbstractIkologikInstallationService):
 
     def list(self, customer: str, installation: str, shop_product: str, include_upload_url: bool = False, include_download_url: bool = False, include_download_thumbnail_url: bool = False, include_download_view_url: bool = False) -> list:
         try:
-            params = {'includeUploadUrl': include_upload_url,
-                      'includeDownloadUrl': include_download_url,
-                      'includeDownloadThumbnailUrl': include_download_thumbnail_url,
-                      'includeDownloadViewUrl': include_download_view_url
-                      }
+            params = {
+                'includeUploadUrl': include_upload_url,
+                'includeDownloadUrl': include_download_url,
+                'includeDownloadThumbnailUrl': include_download_thumbnail_url,
+                'includeDownloadViewUrl': include_download_view_url
+            }
             response = requests.get(
                 f'{self.get_url(customer, installation, shop_product)}',
                 params=params,
@@ -64,11 +66,12 @@ class InstallationShopProductImageService(AbstractIkologikInstallationService):
 
     def search(self, customer: str, installation: str, shop_product: str, search, include_upload_url: bool = False, include_download_url: bool = False, include_download_thumbnail_url: bool = False, include_download_view_url: bool = False) -> list:
         try:
-            params = {'includeUploadUrl': include_upload_url,
-                      'includeDownloadUrl': include_download_url,
-                      'includeDownloadThumbnailUrl': include_download_thumbnail_url,
-                      'includeDownloadViewUrl': include_download_view_url
-                      }
+            params = {
+                'includeUploadUrl': include_upload_url,
+                'includeDownloadUrl': include_download_url,
+                'includeDownloadThumbnailUrl': include_download_thumbnail_url,
+                'includeDownloadViewUrl': include_download_view_url
+            }
             data = json.dumps(search, default=lambda o: o.__dict__)
             response = requests.post(
                 f'{self.get_url(customer, installation, shop_product)}/search',
@@ -88,11 +91,12 @@ class InstallationShopProductImageService(AbstractIkologikInstallationService):
 
     def create(self, customer: str, installation: str, shop_product: str, o: object, include_upload_url: bool = False, include_download_url: bool = False, include_download_thumbnail_url: bool = False, include_download_view_url: bool = False) -> object:
         try:
-            params = {'includeUploadUrl': include_upload_url,
-                      'includeDownloadUrl': include_download_url,
-                      'includeDownloadThumbnailUrl': include_download_thumbnail_url,
-                      'includeDownloadViewUrl': include_download_view_url
-                      }
+            params = {
+                'includeUploadUrl': include_upload_url,
+                'includeDownloadUrl': include_download_url,
+                'includeDownloadThumbnailUrl': include_download_thumbnail_url,
+                'includeDownloadViewUrl': include_download_view_url
+            }
             data = json.dumps(o, default=lambda o: o.__dict__)
             response = requests.post(
                 self.get_url(customer, installation, shop_product),

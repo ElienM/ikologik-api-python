@@ -72,3 +72,11 @@ products = api.customerShopProduct.list(customerId)
 for product in products:
     print(product.code + ' - ' + product.description)
 print('')
+
+
+## List shop product images
+print('## Shop - Product images ##')
+images = api.customerShopProductImage.list(customerId, '62b5b42732acf92ed84d98ce')
+for images in images:
+    print(images.fileName)
+print('')
