@@ -1,6 +1,5 @@
 import os
 
-from ikologikapi.domain.Product import Product
 from ikologikapi.IkologikApi import IkologikAPI
 
 api = IkologikAPI(
@@ -73,10 +72,41 @@ for product in products:
     print(product.code + ' - ' + product.description)
 print('')
 
-
 ## List shop product images
 print('## Shop - Product images ##')
-images = api.customerShopProductImage.list(customerId, '62b5b42732acf92ed84d98ce')
-for images in images:
-    print(images.fileName)
+images = api.customerShopProductImage.list(customerId, products[0].id)
+for image in images:
+    print(image.fileName)
+    if hasattr(image, 'uploadUrl') and image.uploadUrl is not None:
+        print(f'- Upload:    {image.uploadUrl}')
+    if hasattr(image, 'imageUrl') and image.imageUrl is not None:
+        print(f'- Image:     {image.imageUrl}')
+    if hasattr(image, 'viewUrl') and image.viewUrl is not None:
+        print(f'- View:      {image.viewUrl}')
+    if hasattr(image, 'thumbnailUrl') and image.thumbnailUrl is not None:
+        print(f'- Thumbnail: {image.thumbnailUrl}')
+print('')
+
+## Get shop product image - Upload
+print('## Shop - Product images - Upload ##')
+upload_url = api.customerShopProductImage.upload(customerId, products[0].id, images[0].id)
+print(upload_url)
+print('')
+
+## Get shop product image - Image
+print('## Shop - Product images - Image ##')
+image_url = api.customerShopProductImage.image(customerId, products[0].id, images[0].id)
+print(image_url)
+print('')
+
+## Get shop product image - View
+print('## Shop - Product images - View ##')
+view_url = api.customerShopProductImage.view(customerId, products[0].id, images[0].id)
+print(view_url)
+print('')
+
+## Get shop product image - Thumbnail
+print('## Shop - Product images - Thumbnail ##')
+thumbnail_url = api.customerShopProductImage.thumbnail(customerId, products[0].id, images[0].id)
+print(thumbnail_url)
 print('')
