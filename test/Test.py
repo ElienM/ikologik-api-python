@@ -65,6 +65,13 @@ print('')
 #     print(dataImportType.name)
 # print('')
 
+## List shop product groups
+print('## Shop - Product groups ##')
+productGroups = api.customerShopProductGroup.list(customerId)
+for productGroup in productGroups:
+    print(productGroup.code + ' - ' + productGroup.name)
+print('')
+
 ## List shop products
 print('## Shop - Products ##')
 products = api.customerShopProduct.list(customerId)

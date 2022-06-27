@@ -1,7 +1,7 @@
 from ikologikapi.domain.AbstractIkologikCustomerObject import AbstractIkologikCustomerObject
 
 
-class ProductImage(AbstractIkologikCustomerObject):
+class CustomerShopProductImage(AbstractIkologikCustomerObject):
 
     def __init__(self, customer: str):
         super().__init__(customer)
