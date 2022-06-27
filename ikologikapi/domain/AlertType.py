@@ -1,7 +1,7 @@
-from ikologikapi.domain.AbstractIkologikInstallationsObject import AbstractIkologikInstallationsObject
+from ikologikapi.domain.AbstractIkologikInstallationObject import AbstractIkologikInstallationObject
 
 
-class AlertType(AbstractIkologikInstallationsObject):
+class AlertType(AbstractIkologikInstallationObject):
 
     def __init__(self, customer: str, installation: str):
         super().__init__(customer, installation)

@@ -11,7 +11,7 @@ class GraphService:
     def __init__(self, jwtHelper: IkologikApiCredentials):
         self.jwtHelper = jwtHelper
 
-    # CRUD Actions
+    # CRUD actions
 
     def get_headers(self, headers=None):
         default_headers = {
