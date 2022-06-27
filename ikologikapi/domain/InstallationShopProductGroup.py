@@ -1,7 +1,7 @@
 from ikologikapi.domain.AbstractIkologikInstallationObject import AbstractIkologikInstallationObject
 
 
-class ProductGroup(AbstractIkologikInstallationObject):
+class InstallationShopProductGroup(AbstractIkologikInstallationObject):
 
     def __init__(self, customer: str, installation: str):
         super().__init__(customer, installation)
