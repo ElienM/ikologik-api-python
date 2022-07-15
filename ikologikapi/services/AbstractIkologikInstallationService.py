@@ -14,7 +14,7 @@ class AbstractIkologikInstallationService(AbstractIkologikCustomerService):
     def __init__(self, jwtHelper: IkologikApiCredentials):
         super().__init__(jwtHelper)
 
-    # CRUD Actions
+    # CRUD actions
 
     def get_url(self, customer: str, installation: str) -> str:
         pass

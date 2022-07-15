@@ -4,6 +4,7 @@ from ikologikapi.services.AlertTypeService import AlertTypeService
 from ikologikapi.services.BatchService import BatchService
 from ikologikapi.services.BatchTypeService import BatchTypeService
 from ikologikapi.services.CustomerService import CustomerService
+from ikologikapi.services.CustomerShopProductImageService import CustomerShopProductImageService
 from ikologikapi.services.DashboardService import DashboardService
 from ikologikapi.services.DashboardWidgetService import DashboardWidgetService
 from ikologikapi.services.DashboardWidgetTypeService import DashboardWidgetTypeService
@@ -11,9 +12,14 @@ from ikologikapi.services.DataImportService import DataImportService
 from ikologikapi.services.DataImportTypeService import DataImportTypeService
 from ikologikapi.services.GraphService import GraphService
 from ikologikapi.services.InstallationService import InstallationService
+from ikologikapi.services.InstallationShopProductGroupService import InstallationShopProductGroupService
+from ikologikapi.services.InstallationShopProductService import InstallationShopProductService
 from ikologikapi.services.MaintenanceTaskService import MaintenanceTaskService
 from ikologikapi.services.MaintenanceTypeService import MaintenanceTypeService
 from ikologikapi.services.MaintenanceTypeFieldTypeService import MaintenanceTypeFieldTypeService
+from ikologikapi.services.CustomerShopProductGroupService import CustomerShopProductGroupService
+from ikologikapi.services.InstallationShopProductImageService import InstallationShopProductImageService
+from ikologikapi.services.CustomerShopProductService import CustomerShopProductService
 from ikologikapi.services.ReportService import ReportService
 from ikologikapi.services.ReportTypeService import ReportTypeService
 from ikologikapi.services.TagAlertTypeService import TagAlertTypeService
@@ -29,6 +35,9 @@ class IkologikAPI:
         self.batch = BatchService(self.apiCredentials)
         self.batchType = BatchTypeService(self.apiCredentials)
         self.customer = CustomerService(self.apiCredentials)
+        self.customerShopProduct = CustomerShopProductService(self.apiCredentials)
+        self.customerShopProductImage = CustomerShopProductImageService(self.apiCredentials)
+        self.customerShopProductGroup = CustomerShopProductGroupService(self.apiCredentials)
         self.dashboard = DashboardService(self.apiCredentials)
         self.dashboardWidget = DashboardWidgetService(self.apiCredentials)
         self.dashboardWidgetType = DashboardWidgetTypeService(self.apiCredentials)
@@ -36,6 +45,9 @@ class IkologikAPI:
         self.dataImportType = DataImportTypeService(self.apiCredentials)
         self.graph = GraphService(self.apiCredentials)
         self.installation = InstallationService(self.apiCredentials)
+        self.installationShopProduct = InstallationShopProductService(self.apiCredentials)
+        self.installationShopProductImage = InstallationShopProductImageService(self.apiCredentials)
+        self.installationShopProductGroup = InstallationShopProductGroupService(self.apiCredentials)
         self.maintenanceTask = MaintenanceTaskService(self.apiCredentials)
         self.maintenanceType = MaintenanceTypeService(self.apiCredentials)
         self.maintenanceTypeFieldType = MaintenanceTypeFieldTypeService(self.apiCredentials)

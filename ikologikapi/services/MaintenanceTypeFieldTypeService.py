@@ -14,7 +14,7 @@ class MaintenanceTypeFieldTypeService(AbstractIkologikCustomerService):
     def __init__(self, jwtHelper: IkologikApiCredentials):
         super().__init__(jwtHelper)
 
-    # CRUD Actions
+    # CRUD actions
 
     def get_url(self, customer: str, maintenancetype: str) -> str:
         return f'{self.jwtHelper.get_url()}/api/v2/customer/{customer}/maintenancetype/{maintenancetype}/fieldtype'
@@ -135,7 +135,6 @@ class MaintenanceTypeFieldTypeService(AbstractIkologikCustomerService):
             raise ex
         except Exception as ex:
             raise IkologikException("Error while performing delete")
-
 
     def get_by_name(self, customer: str, installation: str, name: str) -> object:
         # Prepare the search
