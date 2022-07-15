@@ -18,6 +18,8 @@ second_tag = os.getenv('TAG2')
 maintenance_type_id = os.getenv('MAINTENANCE_TYPE')
 maintenance_type_field_id = os.getenv('MAINTENANCE_TYPE_FIELD_TYPE')
 maintenance_task = os.getenv('MAINTENANCE_TASK')
+asset_id = os.getenv('ASSET')
+asset_type_id = os.getenv('ASSET_TYPE')
 
 ## Login
 print('## Logging-in ##')
@@ -116,4 +118,28 @@ print('')
 print('## Shop - Product images - Thumbnail ##')
 thumbnail_url = api.customerShopProductImage.thumbnail(customerId, products[0].id, images[0].id)
 print(thumbnail_url)
+print('')
+
+## Asset
+
+print('## Asset')
+
+asset = api.asset.get_by_id(customerId, installationId, asset_id)
+print(asset)
+print('')
+
+## Asset type
+
+print('## Asset type')
+
+asset_type = api.assetType.get_by_id(customerId, asset_type_id)
+print(asset)
+print('')
+
+## Asset type field type
+
+print('## Asset field types')
+
+asset_field_type = api.assetTypeFieldType.list(customerId, asset_type_id)
+print(asset_field_type)
 print('')

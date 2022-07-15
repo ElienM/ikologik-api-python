@@ -1,6 +1,9 @@
 from ikologikapi.IkologikApiCredentials import IkologikApiCredentials
 from ikologikapi.services.AlertService import AlertService
 from ikologikapi.services.AlertTypeService import AlertTypeService
+from ikologikapi.services.AssetService import AssetService
+from ikologikapi.services.AssetTypeFieldTypeService import AssetTypeFieldTypeService
+from ikologikapi.services.AssetTypeService import AssetTypeService
 from ikologikapi.services.BatchService import BatchService
 from ikologikapi.services.BatchTypeService import BatchTypeService
 from ikologikapi.services.CustomerService import CustomerService
@@ -32,6 +35,9 @@ class IkologikAPI:
         self.apiCredentials = IkologikApiCredentials(url, username, password)
         self.alert = AlertService(self.apiCredentials)
         self.alertType = AlertTypeService(self.apiCredentials)
+        self.asset = AssetService(self.apiCredentials)
+        self.assetType = AssetTypeService(self.apiCredentials)
+        self.assetTypeFieldType = AssetTypeFieldTypeService(self.apiCredentials)
         self.batch = BatchService(self.apiCredentials)
         self.batchType = BatchTypeService(self.apiCredentials)
         self.customer = CustomerService(self.apiCredentials)

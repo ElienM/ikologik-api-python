@@ -18,6 +18,8 @@ class AbstractIkologikCustomerFieldType(AbstractIkologikCustomerObject):
         self.defaultTimeValue = None
         self.defaultDateTimeValue = None
         self.defaultLookupListValue = None
+        self.defaultAssetValue = None
+        self.defaultTagValue = None
 
         self.required = None
         self.unique = None
