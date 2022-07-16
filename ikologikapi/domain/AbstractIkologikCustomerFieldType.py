@@ -10,7 +10,9 @@ class AbstractIkologikCustomerFieldType(AbstractIkologikCustomerObject):
         self.name = None
         self.order = 0
         self.type = None
-        self.lookupList = None
+
+        self.linkedLookupList = None
+        self.linkedAssetType = None
 
         self.defaultStringValue = None
         self.defaultBooleanValue = None

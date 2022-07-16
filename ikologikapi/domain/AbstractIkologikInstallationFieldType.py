@@ -10,7 +10,9 @@ class AbstractIkologikInstallationFieldType(AbstractIkologikInstallationObject):
         self.name = None
         self.order = 0
         self.type = None
-        self.lookupList = None
+
+        self.linkedLookupList = None
+        self.linkedAssetType = None
 
         self.defaultStringValue = None
         self.defaultBooleanValue = None
@@ -19,6 +21,8 @@ class AbstractIkologikInstallationFieldType(AbstractIkologikInstallationObject):
         self.defaultTimeValue = None
         self.defaultDateTimeValue = None
         self.defaultLookupListValue = None
+        self.defaultAssetValue = None
+        self.defaultTagValue = None
 
         self.required = None
         self.unique = None

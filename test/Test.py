@@ -8,6 +8,8 @@ api = IkologikAPI(
     password=os.getenv('PASSWORD'),
 )
 
+print('Using url: ' + api.apiCredentials.get_url())
+
 ## Load the customer and installation id's
 customerId = os.getenv('CUSTOMER')
 installationId = os.getenv('INSTALLATION')
@@ -67,58 +69,58 @@ print('')
 #     print(dataImportType.name)
 # print('')
 
-## List shop product groups
-print('## Shop - Product groups ##')
-productGroups = api.customerShopProductGroup.list(customerId)
-for productGroup in productGroups:
-    print(productGroup.code + ' - ' + productGroup.name)
-print('')
-
-## List shop products
-print('## Shop - Products ##')
-products = api.customerShopProduct.list(customerId)
-for product in products:
-    print(product.code + ' - ' + product.description)
-print('')
-
-## List shop product images
-print('## Shop - Product images ##')
-images = api.customerShopProductImage.list(customerId, products[0].id)
-for image in images:
-    print(image.fileName)
-    if hasattr(image, 'uploadUrl') and image.uploadUrl is not None:
-        print(f'- Upload:    {image.uploadUrl}')
-    if hasattr(image, 'imageUrl') and image.imageUrl is not None:
-        print(f'- Image:     {image.imageUrl}')
-    if hasattr(image, 'viewUrl') and image.viewUrl is not None:
-        print(f'- View:      {image.viewUrl}')
-    if hasattr(image, 'thumbnailUrl') and image.thumbnailUrl is not None:
-        print(f'- Thumbnail: {image.thumbnailUrl}')
-print('')
-
-## Get shop product image - Upload
-print('## Shop - Product images - Upload ##')
-upload_url = api.customerShopProductImage.upload(customerId, products[0].id, images[0].id)
-print(upload_url)
-print('')
-
-## Get shop product image - Image
-print('## Shop - Product images - Image ##')
-image_url = api.customerShopProductImage.image(customerId, products[0].id, images[0].id)
-print(image_url)
-print('')
-
-## Get shop product image - View
-print('## Shop - Product images - View ##')
-view_url = api.customerShopProductImage.view(customerId, products[0].id, images[0].id)
-print(view_url)
-print('')
-
-## Get shop product image - Thumbnail
-print('## Shop - Product images - Thumbnail ##')
-thumbnail_url = api.customerShopProductImage.thumbnail(customerId, products[0].id, images[0].id)
-print(thumbnail_url)
-print('')
+# ## List shop product groups
+# print('## Shop - Product groups ##')
+# productGroups = api.customerShopProductGroup.list(customerId)
+# for productGroup in productGroups:
+#     print(productGroup.code + ' - ' + productGroup.name)
+# print('')
+#
+# ## List shop products
+# print('## Shop - Products ##')
+# products = api.customerShopProduct.list(customerId)
+# for product in products:
+#     print(product.code + ' - ' + product.description)
+# print('')
+#
+# ## List shop product images
+# print('## Shop - Product images ##')
+# images = api.customerShopProductImage.list(customerId, products[0].id)
+# for image in images:
+#     print(image.fileName)
+#     if hasattr(image, 'uploadUrl') and image.uploadUrl is not None:
+#         print(f'- Upload:    {image.uploadUrl}')
+#     if hasattr(image, 'imageUrl') and image.imageUrl is not None:
+#         print(f'- Image:     {image.imageUrl}')
+#     if hasattr(image, 'viewUrl') and image.viewUrl is not None:
+#         print(f'- View:      {image.viewUrl}')
+#     if hasattr(image, 'thumbnailUrl') and image.thumbnailUrl is not None:
+#         print(f'- Thumbnail: {image.thumbnailUrl}')
+# print('')
+#
+# ## Get shop product image - Upload
+# print('## Shop - Product images - Upload ##')
+# upload_url = api.customerShopProductImage.upload(customerId, products[0].id, images[0].id)
+# print(upload_url)
+# print('')
+#
+# ## Get shop product image - Image
+# print('## Shop - Product images - Image ##')
+# image_url = api.customerShopProductImage.image(customerId, products[0].id, images[0].id)
+# print(image_url)
+# print('')
+#
+# ## Get shop product image - View
+# print('## Shop - Product images - View ##')
+# view_url = api.customerShopProductImage.view(customerId, products[0].id, images[0].id)
+# print(view_url)
+# print('')
+#
+# ## Get shop product image - Thumbnail
+# print('## Shop - Product images - Thumbnail ##')
+# thumbnail_url = api.customerShopProductImage.thumbnail(customerId, products[0].id, images[0].id)
+# print(thumbnail_url)
+# print('')
 
 ## Asset
 
@@ -138,8 +140,8 @@ print('')
 
 ## Asset type field type
 
-print('## Asset field types')
+print('## Asset field type')
 
-asset_field_type = api.assetTypeFieldType.list(customerId, asset_type_id)
+asset_field_type = api.assetTypeFieldType.get_by_code(customerId, asset_type_id, 'SENSOR1')
 print(asset_field_type)
 print('')

@@ -136,6 +136,20 @@ class AssetTypeFieldTypeService(AbstractIkologikCustomerService):
         except Exception as ex:
             raise IkologikException("Error while performing delete")
 
+    def get_by_code(self, customer: str, assettype: str, code: str) -> object:
+        # Prepare the search
+        search = Search()
+        search.add_filter("code", "EQ", [code])
+        search.add_order("code", "ASC")
+        search.set_pagination(0, 1)
+
+        # Query
+        result = self.search(customer, assettype, search)
+        if result and len(result) == 1:
+            return result[0]
+        else:
+            return None
+
     def get_by_name(self, customer: str, installation: str, name: str) -> object:
         # Prepare the search
         search = Search()
