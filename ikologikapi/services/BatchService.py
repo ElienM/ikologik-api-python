@@ -17,7 +17,7 @@ class BatchService(AbstractIkologikInstallationService):
         # Prepare the search
         search = Search()
         search.add_filters([("batchType", "EQ", [batch_type]), ("code", "EQ", [code])])
-        search.add_order("batchType", "ASC")
+        search.add_order("code", "ASC")
         search.set_pagination(0, 1)
 
         # Query
