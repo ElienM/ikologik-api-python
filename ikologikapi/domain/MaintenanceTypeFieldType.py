@@ -2,6 +2,7 @@ from ikologikapi.domain.AbstractIkologikCustomerFieldType import AbstractIkologi
 
 
 class MaintenanceTypeFielType(AbstractIkologikCustomerFieldType):
+
     def __init__(self, customer: str):
         super().__init__(customer)
 
