@@ -14,8 +14,8 @@ class CustomerShopProduct(AbstractIkologikCustomerObject):
         self.rate = None
 
         self.description = None
-        self.descriptionTranlations = dict({})
+        self.descriptionTranslations = dict({})
         self.detailedDescription = None
-        self.detailedDescriptionTranlations = dict({})
+        self.detailedDescriptionTranslations = dict({})
         self.unit = None
-        self.unitTranlations = dict({})
+        self.unitTranslations = dict({})
