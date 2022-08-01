@@ -33,14 +33,14 @@ print('## Customer ##')
 customer = api.customer.get_by_id(customerId)
 print(customer.name)
 print('')
-
-## List installations
-print('## Installations ##')
-installations = api.installation.list(customerId)
-for installation in installations:
-    print(installation.name)
-print('')
-
+#
+# ## List installations
+# print('## Installations ##')
+# installations = api.installation.list(customerId)
+# for installation in installations:
+#     print(installation.name)
+# print('')
+#
 # ## List tags
 # print('## Tags ##')
 # tags = api.tag.list(customerId, installationId)
@@ -75,14 +75,21 @@ print('')
 # for productGroup in productGroups:
 #     print(productGroup.code + ' - ' + productGroup.name)
 # print('')
-#
-# ## List shop products
-# print('## Shop - Products ##')
-# products = api.customerShopProduct.list(customerId)
-# for product in products:
-#     print(product.code + ' - ' + product.description)
-# print('')
-#
+
+## List shop products
+print('## Shop - Products ##')
+products = api.customerShopProduct.list(customerId)
+for product in products:
+    print(product.code + ' - ' + product.description)
+print('')
+
+## Get shop products by code
+print('## Shop - Product ##')
+product = api.customerShopProduct.get_by_code(customerId, '3312200020')
+if product is not None:
+    print(product.code + ' - ' + product.description)
+print('')
+
 # ## List shop product images
 # print('## Shop - Product images ##')
 # images = api.customerShopProductImage.list(customerId, products[0].id)
@@ -122,26 +129,26 @@ print('')
 # print(thumbnail_url)
 # print('')
 
-## Asset
-
-print('## Asset')
-
-asset = api.asset.get_by_id(customerId, installationId, asset_id)
-print(asset)
-print('')
-
-## Asset type
-
-print('## Asset type')
-
-asset_type = api.assetType.get_by_id(customerId, asset_type_id)
-print(asset)
-print('')
-
-## Asset type field type
-
-print('## Asset field type')
-
-asset_field_type = api.assetTypeFieldType.get_by_code(customerId, asset_type_id, 'SENSOR1')
-print(asset_field_type)
-print('')
+# ## Asset
+#
+# print('## Asset')
+#
+# asset = api.asset.get_by_id(customerId, installationId, asset_id)
+# print(asset)
+# print('')
+#
+# ## Asset type
+#
+# print('## Asset type')
+#
+# asset_type = api.assetType.get_by_id(customerId, asset_type_id)
+# print(asset)
+# print('')
+#
+# ## Asset type field type
+#
+# print('## Asset field type')
+#
+# asset_field_type = api.assetTypeFieldType.get_by_code(customerId, asset_type_id, 'SENSOR1')
+# print(asset_field_type)
+# print('')
