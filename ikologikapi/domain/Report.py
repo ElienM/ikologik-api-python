@@ -11,7 +11,8 @@ class Report(AbstractIkologikInstallationObject):
         self.nextProcessing = None
         self.lockedUntil = None
         self.reportType = None
-        self.date = None
+        self.startDate = None
+        self.endDate = None
         self.title = None
         self.fileName = None
         self.contentType = None
