@@ -9,4 +9,8 @@ class DataImport(AbstractIkologikInstallationObject):
         self.name = None
         self.status = None
         self.active = True
+
+        self.processedRecords = None
+        self.totalRecords = None
+
         self.parameters = []

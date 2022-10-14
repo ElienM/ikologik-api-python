@@ -70,6 +70,12 @@ print('')
 #     print(dataImportType.name)
 # print('')
 
+## Update data import total records
+print('## Data import ##')
+dataImport = api.dataImport.update_total_records(customerId, installationId, dataImportTypeId, dataImportId, 2000)
+print(dataImport)
+print('')
+
 # ## List shop product groups
 # print('## Shop - Product groups ##')
 # productGroups = api.customerShopProductGroup.list(customerId)
@@ -148,14 +154,14 @@ print('')
 # print(asset_field_type)
 # print('')
 
-## Report type
-print('## Report type')
-report_type = api.reportType.get_by_id(customerId, installationId, report_type_id)
-print(report_type)
-print('')
-
-## Report type field type
-print('## Report type field type')
-report_type_field_type = api.reportTypeFieldType.get_by_code(customerId, installationId, report_type_id, 'MAINTENANCE_TASK')
-print(report_type_field_type)
-print('')
+# ## Report type
+# print('## Report type')
+# report_type = api.reportType.get_by_id(customerId, installationId, report_type_id)
+# print(report_type)
+# print('')
+#
+# ## Report type field type
+# print('## Report type field type')
+# report_type_field_type = api.reportTypeFieldType.get_by_code(customerId, installationId, report_type_id, 'MAINTENANCE_TASK')
+# print(report_type_field_type)
+# print('')
