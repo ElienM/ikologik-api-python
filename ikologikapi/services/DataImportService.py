@@ -152,6 +152,23 @@ class DataImportService(AbstractIkologikInstallationService):
         except Exception as ex:
             raise IkologikException("Error while performing update_error")
 
+    def update_total_records(self, customer: str, installation: str, data_import_type: str, id: str, total_records) -> object:
+        try:
+            response = requests.put(
+                f'{self.get_url(customer, installation, data_import_type)}/{id}/totalrecords',
+                data=str(total_records),
+                headers=self.get_headers({'Content-Type': 'text/plain'})
+            )
+            if response.status_code == 200:
+                result = json.loads(response.content, object_hook=lambda d: SimpleNamespace(**d))
+                return result
+            else:
+                raise IkologikException("Error while performing update_total_records, the request returned status " + str(response.status_code))
+        except IkologikException as ex:
+            raise ex
+        except Exception as ex:
+            raise IkologikException("Error while performing update_status")
+
     def get_by_name(self, customer: str, installation: str, name: str) -> object:
         # Prepare the search
         search = Search()
