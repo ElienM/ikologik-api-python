@@ -6,6 +6,8 @@ class Report(AbstractIkologikInstallationObject):
     def __init__(self, customer: str, installation: str):
         super().__init__(customer, installation)
 
+        self.batch = None
+        self.maintenanceTask = None
         self.type = None
         self.lastProcessing = None
         self.nextProcessing = None
